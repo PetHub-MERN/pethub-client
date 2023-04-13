@@ -10,7 +10,7 @@ function Navbar() {
             display: "flex",
             flexDirection:"row",
             justifyContent: "space-between",
-            alignItems: "center"
+            alignItems: "center",
         }}>
             <Box sx={{
                 display: "flex",
@@ -31,13 +31,13 @@ function Navbar() {
                 <Link to={"/login"}>
                     <Typography variant="h5" sx={{
                         m: 1   
-                    }}>LogIn</Typography>
+                    }}>Log In</Typography>
                 </Link>
 
                 <Link to={"/signup"}>
                     <Typography variant="h5" sx={{
-                        m: 1   
-                    }}>SignUp</Typography>
+                        my: 1   
+                    }}>Sign Up</Typography>
                 </Link>
             </Box>
         </AppBar>

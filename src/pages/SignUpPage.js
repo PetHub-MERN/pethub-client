@@ -42,9 +42,9 @@ function SignUpPage() {
                             mt: 3
                         }}/>
                         <TextField variant="outlined"  type="password" label="Password" value={password} onChange={(e) => {setPassword(e.target.value)}} sx={{
-                            mt: 3
+                            my: 3
                         }}/>
-                        <Button onClick={handleSignupSubmit} variant="outlined">LogIn</Button>
+                        <Button onClick={handleSignupSubmit} variant="outlined">Sign Up</Button>
                     </Container>
                 </form>
             </Container>
