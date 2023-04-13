@@ -20,9 +20,16 @@ function Navbar() {
                 <Link to={"/"}>
                     <Typography variant="h3" sx={{
                         display: {xs: "none", md: "block"}
-                    }}>The PetHub</Typography>
+                    }}>🐶 <strong>Pet</strong>Hub 😺</Typography>
                 </Link>
-                <PetsIcon sx={{ml: 1, fontSize: "3em"}}/>
+
+                <Link to={"/"}>
+                    <PetsIcon sx={{
+                        display: {xs: "block", md: "none"},
+                        ml: 1, 
+                        fontSize: "3em"
+                    }}/>
+                </Link>
             </Box>
 
             <Box sx={{

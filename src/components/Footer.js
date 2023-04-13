@@ -12,7 +12,8 @@ function Footer() {
             justifyContent: "center",
             alignItems: "center",
             bgcolor: theme.palette.primary.main,
-            minHeight: "10vh"
+            minHeight: "10vh",
+            boxShadow: "0px -1px 9px 0px rgba(77,77,77,1)"
         }}>
             <Box my={0.5} mx={2}>
                 <Typography variant="h6">Cristian Palao</Typography>
