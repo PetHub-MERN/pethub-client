@@ -6,6 +6,7 @@ import NoPageFound from './pages/NoPageFound';
 import { ThemeProvider, createTheme } from '@mui/material';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -30,6 +31,8 @@ function App() {
 
           <Route path='*' element={<NoPageFound />}/>
         </Routes>
+
+        <Footer />
       </div>
     </ThemeProvider>
   );

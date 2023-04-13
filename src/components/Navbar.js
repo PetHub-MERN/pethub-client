@@ -1,4 +1,4 @@
-import { AppBar, Box, Container, Typography } from "@mui/material";
+import { AppBar, Box, Typography } from "@mui/material";
 import PetsIcon from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
 
