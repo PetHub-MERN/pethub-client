@@ -8,6 +8,8 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
 import CreateAdoptionPage from './pages/CreateAdoptionPage';
+import PetListPage from './pages/PetListPage';
+import PetDetailsPage from './pages/PetDetailsPage';
 
 function App() {
 
@@ -32,7 +34,8 @@ function App() {
             <Route path='/' element={<HomePage />}/>
             <Route path='/signup' element={<SignUpPage />}/>
             <Route path='/login' element={<LoginPage />}/>
-            
+            <Route path='/pets' element={ <PetListPage /> } />
+            <Route path='/pets/:petId' element={ <PetDetailsPage /> } />
             <Route path='*' element={<NoPageFound />}/>
           </Routes>
         </Box>
