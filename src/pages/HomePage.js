@@ -10,8 +10,23 @@ function HomePage() {
 
     const navigate = useNavigate();
 
-    const handleCardClick = () => {
-        navigate("/login");
+    const handleCardClick = (option) => {
+        switch (option){
+            case "register pet":
+                navigate("/register-pet");
+                break;
+            case "see pets":
+                navigate("/pets");
+                break;
+            case "create adoption":
+                navigate("/create-adoption");
+                break;
+            case "see adoptions":
+                navigate("/adoptions");
+                break;
+            default:
+                console.log("Invalid option");
+        }
     }
 
     return (
@@ -107,7 +122,7 @@ function HomePage() {
                     flex: 1,
                     m: 5,
                     }}>
-                    <CardActionArea onClick={handleCardClick}>
+                    <CardActionArea onClick={() => handleCardClick("create adoption")}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -127,7 +142,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 3 }}
                     variant="contained"
-                    onClick={handleCardClick}
+                    onClick={() => handleCardClick("create adoption")}
                     >
                     ANNOUNCE
                     </Button>

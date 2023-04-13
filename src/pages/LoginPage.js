@@ -1,20 +1,35 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+
 
 function LoginPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate();
+    const { storeToken, authenticateUser } = useContext(AuthContext); 
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-        console.log("Email: " + email);
-        console.log("Password: " + password);
+        
+        const loginData = {
+            email,
+            password
+        };
 
-        navigate("/")
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData)
+            .then((response) => {
+                storeToken(response.data.authToken);
+                authenticateUser();
+                navigate("/");
+            }).catch((err) => {
+                setErrorMessage(err.response.data.message);
+            });
     }
 
     return (
@@ -42,6 +57,8 @@ function LoginPage() {
                         <Button onClick={handleLoginSubmit} variant="outlined">LogIn</Button>
                     </Container>
                 </form>
+
+                {errorMessage && <Typography>{errorMessage}</Typography>}
             </Container>
             
         </>

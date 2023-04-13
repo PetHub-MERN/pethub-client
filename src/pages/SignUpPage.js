@@ -1,22 +1,35 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
 
     const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate();
 
     const handleSignupSubmit = (e) => {
         e.preventDefault();
-        console.log("Email: " + email);
-        console.log("Username: " + username);
-        console.log("Password: " + password);
 
-        navigate("/")
+        const newUserData = {
+            email,
+            name,
+            password
+        };
+
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, newUserData)
+            .then(() => {
+                setEmail("");
+                setName("");
+                setPassword("");
+                navigate("/login");
+            }).catch((err) => {
+                setErrorMessage(err.response.data.message);
+            });
     }
 
     return (
@@ -38,7 +51,7 @@ function SignUpPage() {
                         <TextField variant="outlined" type="text" label="Email" value={email} onChange={(e) => {setEmail(e.target.value)}} sx={{
                             mt: 3
                         }}/>
-                        <TextField variant="outlined"  type="text" label="Username" value={username} onChange={(e) => {setUsername(e.target.value)}} sx={{
+                        <TextField variant="outlined"  type="text" label="Username" value={name} onChange={(e) => {setName(e.target.value)}} sx={{
                             mt: 3
                         }}/>
                         <TextField variant="outlined"  type="password" label="Password" value={password} onChange={(e) => {setPassword(e.target.value)}} sx={{
@@ -47,6 +60,10 @@ function SignUpPage() {
                         <Button onClick={handleSignupSubmit} variant="outlined">Sign Up</Button>
                     </Container>
                 </form>
+
+                {errorMessage &&
+                    <Typography>{errorMessage}</Typography>
+                }
             </Container>
             
         </>
