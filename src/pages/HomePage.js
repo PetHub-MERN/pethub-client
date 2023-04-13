@@ -28,6 +28,7 @@ function HomePage() {
             display: "flex",
             flexDirection: {xs: "column", md:"column", xl:"row"},
             justifyContent: "center",
+            flex: 1
             }}>
                 <Card
                 sx={{
@@ -99,6 +100,7 @@ function HomePage() {
             display: "flex",
             flexDirection: {xs: "column", md:"column", xl:"row"},
             justifyContent: "center",
+            flex: 1
             }}>
                     <Card
                     sx={{
