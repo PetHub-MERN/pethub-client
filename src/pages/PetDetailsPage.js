@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import petServices from "../services/pet.services";
 
 const PetDetailsPage = () => {
 
@@ -10,7 +9,7 @@ const PetDetailsPage = () => {
     const { petId } = useParams();
 
     const getPetDetails = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/pets/${petId}`)
+        petServices.getPet(petId)
             .then( response => {
                 console.log(response.data);
                 setPet(response.data);
@@ -23,6 +22,7 @@ const PetDetailsPage = () => {
 
     useEffect( () => {
         getPetDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -1,7 +1,7 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import authService from "../services/auth.services";
 
 function SignUpPage() {
 
@@ -21,7 +21,7 @@ function SignUpPage() {
             password
         };
 
-        axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, newUserData)
+        authService.signUp(newUserData)
             .then(() => {
                 setEmail("");
                 setName("");

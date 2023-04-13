@@ -1,8 +1,8 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import authService from "../services/auth.services";
 
 
 function LoginPage() {
@@ -22,7 +22,7 @@ function LoginPage() {
             password
         };
 
-        axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData)
+        authService.login(loginData)
             .then((response) => {
                 storeToken(response.data.authToken);
                 authenticateUser();

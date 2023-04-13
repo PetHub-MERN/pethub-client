@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import petServices from "../services/pet.services";
 
 const PetListPage = () => {
 
@@ -14,7 +14,7 @@ const PetListPage = () => {
     }
 
     const getAllPets = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/pets`)
+        petServices.getAllPets()
             .then( response => {
                 setPets(response.data);
             })
