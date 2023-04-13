@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NoPageFound from './pages/NoPageFound';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { Box, ThemeProvider, createTheme } from '@mui/material';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
@@ -22,15 +22,20 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Navbar />
+        <Box sx={{
+          minHeight: "90vh"
+        }}>
+          <Navbar />
 
-        <Routes>
-          <Route path='/' element={<HomePage />}/>
-          <Route path='/signup' element={<SignUpPage />}/>
-          <Route path='/login' element={<LoginPage />}/>
+          <Routes>
+            <Route path='/' element={<HomePage />}/>
+            <Route path='/signup' element={<SignUpPage />}/>
+            <Route path='/login' element={<LoginPage />}/>
 
-          <Route path='*' element={<NoPageFound />}/>
-        </Routes>
+            <Route path='*' element={<NoPageFound />}/>
+          </Routes>
+        </Box>
+        
 
         <Footer />
       </div>

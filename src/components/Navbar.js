@@ -11,6 +11,7 @@ function Navbar() {
             flexDirection:"row",
             justifyContent: "space-between",
             alignItems: "center",
+            minHeight: "10vh"
         }}>
             <Box sx={{
                 display: "flex",
