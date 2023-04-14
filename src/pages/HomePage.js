@@ -19,7 +19,7 @@ function HomePage() {
                 navigate("/pets");
                 break;
             case "create adoption":
-                navigate("/create-adoption");
+                navigate("/register-adoption");
                 break;
             case "see adoptions":
                 navigate("/adoptions");
@@ -50,7 +50,7 @@ function HomePage() {
                 flex: 1,
                 m: 5,
                 }}>
-                    <CardActionArea onClick={handleCardClick}>
+                    <CardActionArea onClick={() => handleCardClick("register pet")}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -70,7 +70,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 2 }}
                     variant="contained"
-                    onClick={handleCardClick}
+                    onClick={() => handleCardClick("register pet")}
                     >
                         REGISTER A PET
                     </Button>
@@ -81,7 +81,7 @@ function HomePage() {
                     flex: 1,
                     m: 5,
                     }}>
-                    <CardActionArea onClick={handleCardClick}>
+                    <CardActionArea onClick={() => handleCardClick("see pets")}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -104,7 +104,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 3 }}
                     variant="contained"
-                    onClick={handleCardClick}
+                    onClick={() => handleCardClick("see pets")}
                     >
                     SEE ALL PETS
                     </Button>
@@ -153,7 +153,7 @@ function HomePage() {
                     flex: 1,
                     m: 5,
                     }}>
-                    <CardActionArea onClick={handleCardClick}>
+                    <CardActionArea onClick={() => handleCardClick("see adoptions")}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -173,7 +173,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 3 }}
                     variant="contained"
-                    onClick={handleCardClick}
+                    onClick={() => handleCardClick("see adoptions")}
                     >
                     SEE ALL PETS
                     </Button>

@@ -9,6 +9,7 @@ import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
 import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
+import CreateAdoptionPage from './pages/CreateAdoptionPage';
 
 function App() {
 
@@ -44,9 +45,9 @@ function App() {
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <PetListPage /> } />
-            <Route path='/adoptions/:adoptionId' element={ <PetDetailsPage /> } />
-            <Route path='/register-adoption' element={ <PetDetailsPage /> } />
-            <Route path='/edit-adoption/:adoptionId' element={ <PetDetailsPage /> } />
+            <Route path='/adoptions/:adoptionId' element={ <PetListPage /> } />
+            <Route path='/register-adoption' element={ <CreateAdoptionPage /> } />
+            <Route path='/edit-adoption/:adoptionId' element={ <PetListPage /> } />
 
             {/*  */}
             <Route path='/user-profile' element={ <PetDetailsPage /> } />
