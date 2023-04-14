@@ -78,8 +78,8 @@ function Navbar() {
                     marginRight: "10px"
                 }}>
 
-                    <NavLink exact to={"/"} isActive={() => location.pathname === "/"} className="nav-link">
-                        HOME
+                    <NavLink exact to={"/user-profile"} isActive={() => location.pathname === "/"} className="nav-link">
+                        MY PROFILE
                     </NavLink>
 
                     <NavLink exact to={"/pets"} isActive={() => location.pathname === "/pets"} className="nav-link">
@@ -90,16 +90,8 @@ function Navbar() {
                         ADOPTIONS
                     </NavLink>
 
-                    <NavLink exact to={"/register-pet"} isActive={() => location.pathname === "/register-pet"} className="nav-link">
-                        REGISTER A PET
-                    </NavLink>
-
-                    <NavLink exact to={"/register-adoption"} isActive={() => location.pathname === "/register-adoption"} className="nav-link">
-                        CREATE AN ADOPTION
-                    </NavLink>
-
-                    <Button sx={{color: "black", borderColor:"black", marginRight:"20px"}} variant="outlined" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
-                    LOGOUT
+                    <Button sx={{color: "black", borderColor:"black", mx: 3}} variant="outlined" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
+                        LOGOUT
                     </Button>
                 </Box>
             }

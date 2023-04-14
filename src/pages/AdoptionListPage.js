@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import adoptionServices from "../services/adoption.services";
 import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CreateAdoption from "../components/CreateAdoption";
 
 function AdoptionListPage() {
 
@@ -11,13 +12,17 @@ function AdoptionListPage() {
 
     const [errorMessage, setErrorMessage] = useState(null);
 
-    useEffect(() => {
+    const getAdoptions = () => {
         adoptionServices.getAllAdoptions()
             .then((response) => {
                 setAdoptions(response.data);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
             });
+    }
+
+    useEffect(() => {
+        getAdoptions();
     }, []);
 
     const renderAdoptions = () => {
@@ -35,12 +40,12 @@ function AdoptionListPage() {
                             width: 300,
                             m:3
                         }}>
-                            <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
                             <CardMedia 
                                 sx={{ height: 140 }}
                                 image="https://via.placeholder.com/600x400?text=PET+IMAGE"
                                 title={adoption.title}
                             />
+                            <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
                             <Typography><strong>Location: {adoption.location}</strong></Typography>
                             <Typography><strong>Posted by: {adoption.announcer.name}</strong></Typography>
                             <Button onClick={() => {navigate(`/adoptions/${adoption._id}`)}}>See Details</Button>
@@ -55,17 +60,36 @@ function AdoptionListPage() {
 
     return (
         <>
-            <Typography variant="h2">Available Adoptions</Typography>
 
-            {adoptions ?
-                <>
-                    {renderAdoptions()}
-                </>
-                :
-                <Typography variant="h3">Loading...</Typography>
-            }
+            <Box sx={{
+                display: "flex",
+            }}>
+                <Box sx={{
+                    flex: 1,
+                    maxHeight: "80vh",
+                    overflow: "auto",
+                }}>
+                    <CreateAdoption callbackToUpdate={getAdoptions}/>
+                </Box>
 
-            {errorMessage && <Typography>{errorMessage}</Typography>}
+                <Box sx={{
+                    flex: 3,
+                    maxHeight: "80vh",
+                    overflow: "auto",
+                }}>
+                    <Typography variant="h2" marginTop={4}>🦊 List of <strong>Adoptions</strong> 🐯</Typography>
+
+                    {adoptions ?
+                        <>
+                            {renderAdoptions()}
+                        </>
+                        :
+                        <Typography variant="h3">Loading...</Typography>
+                    }
+
+                    {errorMessage && <Typography>{errorMessage}</Typography>}
+                </Box>
+            </Box>
 
         </>
     );

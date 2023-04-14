@@ -5,7 +5,7 @@ import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 
-function CreateAdoptionPage() {
+function CreateAdoption(props) {
 
     const navigate = useNavigate();
 
@@ -43,7 +43,16 @@ function CreateAdoptionPage() {
 
         adoptionServices.createAdoption(newAdoptionData)
             .then((response) => {
-                navigate("/");                
+                setTitle("");
+                setSelectedPets([]);
+                setErrorMessage(null);
+                setDescription("");
+                setLocation("");
+
+                if(props.callbackToUpdate){
+                    props.callbackToUpdate();
+                }
+
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
             });
@@ -70,14 +79,50 @@ function CreateAdoptionPage() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    width: "inherit"
                 }}>
-                    <TextField type="text" label="Title" value={title} onChange={(e) => {setTitle(e.target.value)}} />
-                    <TextField type="text" label="Location" value={location} onChange={(e) => {setLocation(e.target.value)}} />
+                    <TextField 
+                        required 
+                        fullWidth 
+                        type="text" 
+                        label="Title" 
+                        value={title} 
+                        onChange={(e) => {setTitle(e.target.value)}}
+                        sx={{
+                            m:1
+                        }}                            
+                        />
+                    <TextField 
+                        required 
+                        fullWidth 
+                        type="text" 
+                        label="Location" 
+                        value={location} 
+                        onChange={(e) => {setLocation(e.target.value)}} 
+                        sx={{
+                            m:1
+                        }}
+                        />
+
+                    <TextField 
+                        required 
+                        fullWidth 
+                        type="text" 
+                        multiline 
+                        minRows={3} 
+                        label="Decription" 
+                        value={description} 
+                        onChange={(e) => {setDescription(e.target.value)}} 
+                        sx={{
+                            my:2,
+                            mx:1
+                        }}
+                        />
 
                     <Typography variant="h6"><strong>Select Pets for Adoption</strong></Typography>
                     <Paper sx={{
                         height: "30vh",
-                        width: "40vw",
+                        width: "inherit",
                         overflow: "auto",
                         display: "flex",
                         justifyContent: "center",
@@ -99,9 +144,14 @@ function CreateAdoptionPage() {
                         }
                     </Paper>
 
-                    <TextField type="text" multiline minRows={3} label="Decription" value={description} onChange={(e) => {setDescription(e.target.value)}} />
-
-                    <Button size="large" onClick={handleSubmit}>CREATE</Button>
+                    <Button 
+                        size="large" 
+                        onClick={handleSubmit}
+                        variant="outlined"
+                        sx={{
+                            m: 2
+                        }}
+                        >CREATE</Button>
                 </Container>             
 
             </form>
@@ -121,17 +171,23 @@ function CreateAdoptionPage() {
         return ownedPets.map((pet) => {
             return(
                 <Card key={pet._id} sx={{
-                    width: 200,
+                    width: 150,
                     minHeight: 200,
                     m: 3
                 }}>
-                    <Typography variant="h6">{pet.name}</Typography>
+                    
                     <CardMedia 
                         sx={{ height: 140 }}
                         image="https://via.placeholder.com/600x400?text=PET+IMAGE"
                         title={pet.name}
                     />
-                    <Button onClick={() => handlePetSelection(pet._id)}>{selectedPets.includes(pet._id) ? "DESELECT" : "SELECT"}</Button>
+                    <Typography variant="h6">{pet.name}</Typography>
+                    <Button
+                        onClick={() => handlePetSelection(pet._id)}
+                        sx={{
+                            m: 1
+                        }}
+                    >{selectedPets.includes(pet._id) ? "DESELECT" : "SELECT"}</Button>
 
                     
                 </Card>
@@ -141,7 +197,9 @@ function CreateAdoptionPage() {
 
     return(
         <>
-            <Typography variant="h3">Create an Adoption Announcement</Typography>
+            <Typography variant="h3" sx={{
+                m: 4
+            }}>New <strong>Adoption</strong></Typography>
 
             {ownedPets ? 
                 <>
@@ -157,6 +215,4 @@ function CreateAdoptionPage() {
     );
 }
 
-export default CreateAdoptionPage;
-
-
+export default CreateAdoption;

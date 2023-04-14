@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
-import { Card, CardMedia, Typography } from "@mui/material";
+import { Box, Card, CardMedia, Typography } from "@mui/material";
 
 function AdoptionDetailsPage() {
 
@@ -24,16 +24,18 @@ function AdoptionDetailsPage() {
     const renderAdoption = () => {
         return(
             <>
-                <Typography variant="h2">{adoption.title}</Typography>
 
                 <Card sx={{
                     display: "flex",
                     flexDirection: {xs: "column", md: "row"},
                 }}>
+                
                     <CardMedia 
                         sx={{ height: 140 }}
                         image="https://via.placeholder.com/600x400?text=PET+IMAGE"
                     />
+
+                    <Typography variant="h2">{adoption.title}</Typography>
 
                 </Card>
             </>
