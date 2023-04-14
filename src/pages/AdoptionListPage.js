@@ -26,13 +26,14 @@ function AdoptionListPage() {
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
+                m: 4
             }}>
 
                 {adoptions.map(adoption => {
                     return (
                         <Card sx={{
-                            width: 300
-
+                            width: 300,
+                            m:3
                         }}>
                             <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
                             <CardMedia 
