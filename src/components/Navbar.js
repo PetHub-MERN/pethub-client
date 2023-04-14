@@ -11,7 +11,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 function Navbar() {
 
-    const {isLoggedIn, isLoading, logOutUser} = useContext(AuthContext);
+    const {isLoggedIn, logOutUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleButtonClick = (option) => {

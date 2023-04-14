@@ -26,16 +26,34 @@ function App() {
       <div className="App">
         <Box sx={{
           minHeight: "90vh"
+          
         }}>
           <Navbar />
 
           <Routes>
+            {/* Authentication Routes */}
             <Route path='/' element={<HomePage />}/>
             <Route path='/signup' element={<SignUpPage />}/>
             <Route path='/login' element={<LoginPage />}/>
+
+            {/* Pet Routes */}
             <Route path='/pets' element={ <PetListPage /> } />
             <Route path='/pets/:petId' element={ <PetDetailsPage /> } />
+            <Route path='/register-pet' element={ <PetDetailsPage /> } />
+            <Route path='/edit-pet/:petId' element={ <PetDetailsPage /> } />
+            
+            {/* Adoption Routes */}
+            <Route path='/adoptions' element={ <PetListPage /> } />
+            <Route path='/adoptions/:adoptionId' element={ <PetDetailsPage /> } />
+            <Route path='/register-adoption' element={ <PetDetailsPage /> } />
+            <Route path='/edit-adoption/:adoptionId' element={ <PetDetailsPage /> } />
+
+            {/*  */}
+            <Route path='/user-profile' element={ <PetDetailsPage /> } />
+
+            {/* Fallback Route */}
             <Route path='*' element={<NoPageFound />}/>
+
           </Routes>
         </Box>
         
