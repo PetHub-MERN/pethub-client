@@ -73,92 +73,7 @@ function CreateAdoption(props) {
     }
 
     const renderForm = () => {
-        return (
-            <form onSubmit={handleSubmit}>
-                <Container sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    width: "inherit"
-                }}>
-                    <TextField 
-                        required 
-                        fullWidth 
-                        type="text" 
-                        label="Title" 
-                        value={title} 
-                        onChange={(e) => {setTitle(e.target.value)}}
-                        sx={{
-                            m:1
-                        }}                            
-                        />
-                    <TextField 
-                        required 
-                        fullWidth 
-                        type="text" 
-                        label="Location" 
-                        value={location} 
-                        onChange={(e) => {setLocation(e.target.value)}} 
-                        sx={{
-                            m:1
-                        }}
-                        />
 
-                    <TextField 
-                        required 
-                        fullWidth 
-                        type="text" 
-                        multiline 
-                        minRows={3} 
-                        label="Decription" 
-                        value={description} 
-                        onChange={(e) => {setDescription(e.target.value)}} 
-                        sx={{
-                            my:2,
-                            mx:1
-                        }}
-                        />
-
-                    <Typography variant="h6"><strong>Select Pets for Adoption</strong></Typography>
-                    <Paper sx={{
-                        height: "30vh",
-                        width: "inherit",
-                        overflow: "auto",
-                        display: "flex",
-                        justifyContent: "center",
-                        flexWrap: "wrap"
-                    }}>
-
-                        {renderPets()}
-                        
-                    </Paper>
-
-                    <Paper>
-                        {selectedPets.length === 0 ? 
-                            <Typography><strong>You don't have any Pet selected</strong></Typography>
-                            :
-                            <Typography><strong>Pets Selected:</strong> {selectedPets.map((petId) => {
-                                const pet = ownedPets.filter((pet) => {return pet._id === petId})[0];
-                                return ` ${pet.name};`
-                            })}</Typography>
-                        }
-                    </Paper>
-
-                    <Button 
-                        size="large" 
-                        onClick={handleSubmit}
-                        variant="outlined"
-                        sx={{
-                            m: 2
-                        }}
-                        >CREATE</Button>
-                </Container>             
-
-            </form>
-        );
-    }
-
-    const renderPets = () => {
         if(ownedPets.length === 0) {
             return (
                 <>
@@ -166,8 +81,98 @@ function CreateAdoption(props) {
                     <Link to={"/register-pet"}><strong>Register a new Pet!</strong></Link>
                 </>
             );
+        } else {
+
+            return (
+                
+                <form onSubmit={handleSubmit}>
+                    <Container sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: "inherit"
+                    }}>
+                        <TextField 
+                            required 
+                            fullWidth 
+                            type="text" 
+                            label="Title" 
+                            value={title} 
+                            onChange={(e) => {setTitle(e.target.value)}}
+                            sx={{
+                                m:1
+                            }}                            
+                            />
+                        <TextField 
+                            required 
+                            fullWidth 
+                            type="text" 
+                            label="Location" 
+                            value={location} 
+                            onChange={(e) => {setLocation(e.target.value)}} 
+                            sx={{
+                                m:1
+                            }}
+                            />
+    
+                        <TextField 
+                            required 
+                            fullWidth 
+                            type="text" 
+                            multiline 
+                            minRows={3} 
+                            label="Decription" 
+                            value={description} 
+                            onChange={(e) => {setDescription(e.target.value)}} 
+                            sx={{
+                                my:2,
+                                mx:1
+                            }}
+                            />
+    
+                        <Typography variant="h6"><strong>Select Pets for Adoption</strong></Typography>
+                        <Paper sx={{
+                            height: "30vh",
+                            width: "inherit",
+                            overflow: "auto",
+                            display: "flex",
+                            justifyContent: "center",
+                            flexWrap: "wrap"
+                        }}>
+    
+                            {renderPets()}
+                            
+                        </Paper>
+    
+                        <Paper>
+                            {selectedPets.length === 0 ? 
+                                <Typography><strong>You don't have any Pet selected</strong></Typography>
+                                :
+                                <Typography><strong>Pets Selected:</strong> {selectedPets.map((petId) => {
+                                    const pet = ownedPets.filter((pet) => {return pet._id === petId})[0];
+                                    return ` ${pet.name};`
+                                })}</Typography>
+                            }
+                        </Paper>
+    
+                        <Button 
+                            size="large" 
+                            onClick={handleSubmit}
+                            variant="outlined"
+                            sx={{
+                                m: 2
+                            }}
+                            >CREATE</Button>
+                    </Container>             
+    
+                </form>
+            );
         }
 
+    }
+
+    const renderPets = () => {
+        
         return ownedPets.map((pet) => {
             return(
                 <Card key={pet._id} sx={{
@@ -189,10 +194,10 @@ function CreateAdoption(props) {
                         }}
                     >{selectedPets.includes(pet._id) ? "DESELECT" : "SELECT"}</Button>
 
-                    
                 </Card>
             );
         })
+        
     }
 
     return(
@@ -208,8 +213,6 @@ function CreateAdoption(props) {
                 :
                 <Typography variant="h5"><strong>Loading...</strong></Typography>
             }
-
-            {errorMessage && <Typography>{errorMessage}</Typography>}
 
         </>
     );

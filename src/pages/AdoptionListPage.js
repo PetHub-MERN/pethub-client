@@ -36,9 +36,11 @@ function AdoptionListPage() {
 
                 {adoptions.map(adoption => {
                     return (
-                        <Card sx={{
-                            width: 300,
-                            m:3
+                        <Card
+                            key={adoption._id}
+                            sx={{
+                                width: 300,
+                                m:3
                         }}>
                             <CardMedia 
                                 sx={{ height: 140 }}
@@ -56,7 +58,6 @@ function AdoptionListPage() {
             </Box>
         );
     }
-
 
     return (
         <>
