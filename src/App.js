@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
 import CreateAdoptionPage from './pages/CreateAdoptionPage';
+import AdoptionListPage from './pages/AdoptionListPage';
 
 function App() {
 
@@ -44,7 +45,7 @@ function App() {
             <Route path='/edit-pet/:petId' element={ <PetDetailsPage /> } />
             
             {/* Adoption Routes */}
-            <Route path='/adoptions' element={ <PetListPage /> } />
+            <Route path='/adoptions' element={ <AdoptionListPage /> } />
             <Route path='/adoptions/:adoptionId' element={ <PetListPage /> } />
             <Route path='/register-adoption' element={ <CreateAdoptionPage /> } />
             <Route path='/edit-adoption/:adoptionId' element={ <PetListPage /> } />
