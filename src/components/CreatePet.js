@@ -1,12 +1,9 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 
 const CreatePet = (props) => {
-
-    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');

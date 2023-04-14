@@ -2,7 +2,6 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typograph
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import petServices from "../services/pet.services";
-import CreateAdoption from "../components/CreateAdoption";
 import CreatePet from "../components/CreatePet";
 
 const PetListPage = () => {

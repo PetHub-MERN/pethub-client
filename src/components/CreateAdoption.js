@@ -1,13 +1,12 @@
-import { Button, Card, CardMedia, Container, Paper, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, Card, CardMedia, Container, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 
 function CreateAdoption(props) {
 
-    const navigate = useNavigate();
 
     const [ownedPets, setOwnedPets] = useState(null);
     const {user} = useContext(AuthContext);
@@ -212,6 +211,13 @@ function CreateAdoption(props) {
                 </>
                 :
                 <Typography variant="h5"><strong>Loading...</strong></Typography>
+            }
+
+            {errorMessage &&
+                <Alert align="left" severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
+                </Alert>
             }
 
         </>

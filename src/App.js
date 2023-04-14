@@ -11,7 +11,6 @@ import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
 import AdoptionListPage from './pages/AdoptionListPage';
 import AdoptionDetailsPage from './pages/AdoptionDetailsPage';
-import RegisterPetPage from './pages/RegisterPetPage';
 import PetEditPage from './pages/PetEditPage';
 import UserProfilePage from './pages/UserProfilePage';
 
