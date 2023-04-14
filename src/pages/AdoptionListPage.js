@@ -32,16 +32,16 @@ function AdoptionListPage() {
                     return (
                         <Card sx={{
                             width: 300
-                            
+
                         }}>
-                            <Typography variant="h6">{adoption.title}</Typography>
+                            <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
                             <CardMedia 
                                 sx={{ height: 140 }}
                                 image="https://via.placeholder.com/600x400?text=PET+IMAGE"
                                 title={adoption.title}
                             />
-                            <Typography>Description: {adoption.description}</Typography>
-                            <Typography>Posted by: <strong>{adoption.announcer.name}</strong></Typography>
+                            <Typography><strong>Location: {adoption.location}</strong></Typography>
+                            <Typography><strong>Posted by: {adoption.announcer.name}</strong></Typography>
                             <Button onClick={() => {navigate(`/adoptions/${adoption._id}`)}}>See Details</Button>
                         </Card>
                     );

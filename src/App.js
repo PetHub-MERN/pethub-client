@@ -11,6 +11,7 @@ import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
 import CreateAdoptionPage from './pages/CreateAdoptionPage';
 import AdoptionListPage from './pages/AdoptionListPage';
+import AdoptionDetailsPage from './pages/AdoptionDetailsPage';
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <AdoptionListPage /> } />
-            <Route path='/adoptions/:adoptionId' element={ <PetListPage /> } />
+            <Route path='/adoptions/:adoptionId' element={ <AdoptionDetailsPage /> } />
             <Route path='/register-adoption' element={ <CreateAdoptionPage /> } />
             <Route path='/edit-adoption/:adoptionId' element={ <PetListPage /> } />
 
