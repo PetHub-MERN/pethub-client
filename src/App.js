@@ -9,6 +9,8 @@ import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
 import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
+import RegisterPetPage from './pages/RegisterPetPage';
+import PetEditPage from './pages/PetEditPage';
 
 function App() {
 
@@ -39,8 +41,8 @@ function App() {
             {/* Pet Routes */}
             <Route path='/pets' element={ <PetListPage /> } />
             <Route path='/pets/:petId' element={ <PetDetailsPage /> } />
-            <Route path='/register-pet' element={ <PetDetailsPage /> } />
-            <Route path='/edit-pet/:petId' element={ <PetDetailsPage /> } />
+            <Route path='/register-pet' element={ <RegisterPetPage /> } />
+            <Route path='/pets/edit/:petId' element={ <PetEditPage /> } />
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <PetListPage /> } />
