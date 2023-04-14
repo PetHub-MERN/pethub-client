@@ -50,7 +50,7 @@ function HomePage() {
                 flex: 1,
                 m: 5,
                 }}>
-                    <CardActionArea onClick={() => handleCardClick("register pet")}>
+                    <CardActionArea onClick={() => {handleCardClick('register pet')}}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -70,7 +70,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 2 }}
                     variant="contained"
-                    onClick={() => handleCardClick("register pet")}
+                    onClick={() => {handleCardClick('register pet')}}
                     >
                         REGISTER A PET
                     </Button>
@@ -81,7 +81,7 @@ function HomePage() {
                     flex: 1,
                     m: 5,
                     }}>
-                    <CardActionArea onClick={() => handleCardClick("see pets")}>
+                    <CardActionArea onClick={() => {handleCardClick('see pets')}}>
                         <CardMedia
                             component="img"
                             height="200"
@@ -104,7 +104,7 @@ function HomePage() {
                     <Button
                     sx={{ my: 3 }}
                     variant="contained"
-                    onClick={() => handleCardClick("see pets")}
+                    onClick={() => {handleCardClick('see pets')}}
                     >
                     SEE ALL PETS
                     </Button>

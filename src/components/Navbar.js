@@ -1,7 +1,7 @@
 import { AppBar, Box, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import PetsIcon from "@mui/icons-material/Pets";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import LoginIcon from '@mui/icons-material/Login';
@@ -13,6 +13,7 @@ function Navbar() {
 
     const {isLoggedIn, logOutUser} = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleButtonClick = (option) => {
         
@@ -76,6 +77,27 @@ function Navbar() {
                     alignItems: "center",
                     marginRight: "10px"
                 }}>
+
+                    <NavLink exact to={"/"} isActive={() => location.pathname === "/"} className="nav-link">
+                        HOME
+                    </NavLink>
+
+                    <NavLink exact to={"/pets"} isActive={() => location.pathname === "/pets"} className="nav-link">
+                        PETS
+                    </NavLink>
+
+                    <NavLink exact to={"/adoptions"} isActive={() => location.pathname === "/adoptions"} className="nav-link">
+                        ADOPTIONS
+                    </NavLink>
+
+                    <NavLink exact to={"/register-pet"} isActive={() => location.pathname === "/register-pet"} className="nav-link">
+                        REGISTER A PET
+                    </NavLink>
+
+                    <NavLink exact to={"/register-adoption"} isActive={() => location.pathname === "/register-adoption"} className="nav-link">
+                        CREATE AN ADOPTION
+                    </NavLink>
+
                     <Button sx={{color: "black", borderColor:"black", marginRight:"20px"}} variant="outlined" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
                     LOGOUT
                     </Button>
