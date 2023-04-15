@@ -2,6 +2,7 @@ import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent,
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
+import IsOwner from "./IsOwner";
 
 function AdoptionList(props) {
 
@@ -57,10 +58,12 @@ function AdoptionList(props) {
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Description:</strong> {adoption.description}</Typography>
                     </CardContent>
 
-                    <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
-                        <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
-                        <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
-                    </CardActions>
+                    <IsOwner>
+                        <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
+                            <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
+                            <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
+                        </CardActions>
+                    </IsOwner>
                 </Card>
                 
             </Box>

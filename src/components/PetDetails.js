@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import petServices from "../services/pet.services";
 import { useEffect } from "react";
 import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import IsOwner from "./IsOwner";
 
 function PetDetails(props) {
 
@@ -59,10 +60,13 @@ function PetDetails(props) {
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Breed:</strong> {pet.breed}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Description:</strong> {pet.description}</Typography>
                     </CardContent>
-                    <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
-                        <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
-                        <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
-                    </CardActions>
+
+                    <IsOwner>
+                        <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
+                            <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
+                            <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
+                        </CardActions>
+                    </IsOwner>
                 </Card>
                 
             </Box>
