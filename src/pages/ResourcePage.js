@@ -11,6 +11,7 @@ import AdoptionDetails from "../components/AdoptionDetails"
 import petServices from "../services/pet.services";
 import PetList from "../components/PetList";
 import PetDetails from "../components/PetDetails";
+import IsOwner from "../components/IsOwner";
 
 
 function ResourcePage(props) {
@@ -71,13 +72,30 @@ function ResourcePage(props) {
         );
     }
 
-
+    //For All
     const [errorMessage, setErrorMessage] = useState(null);
 
+    const renderResourceRelatedForm = () => {
+        return (
+            <Box sx={{
+                flex: 1,
+                maxHeight: "80vh",
+                overflow: "auto",
+            }}>
 
+                {/* Render resource related form component */}
 
+                {/* For Adoptions */}
+                {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions}/> }
+                {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails}/> }
 
-
+                {/* For Pets */}
+                {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets}/> }
+                {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails}/> }
+                
+            </Box>
+        );
+    }
 
     return (
         <>
@@ -85,23 +103,16 @@ function ResourcePage(props) {
             <Box sx={{
                 display: "flex",
             }}>
-                <Box sx={{
-                    flex: 1,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-
-                    {/* Render resource related action component */}
-
-                    {/* For Adoptions */}
-                    {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions}/> }
-                    {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails}/> }
-
-                    {/* For Pets */}
-                    {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets}/> }
-                    {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails}/> }
-                    
-                </Box>
+                
+                {page === "pet-details" || page === "adoption-details" ?
+                    <IsOwner>
+                        {renderResourceRelatedForm()}
+                    </IsOwner>
+                    :
+                    <>
+                        {renderResourceRelatedForm()}
+                    </>
+                }
 
                 <Box sx={{
                     flex: 3,
