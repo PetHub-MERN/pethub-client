@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import petServices from "../services/pet.services";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
-import EditPet from "../components/EditPet";
+import { useEffect } from "react";
+import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 
-const PetDetailsPage = () => {
+function PetDetails(props) {
+
+    const {resource: pet, resourceId: petId, errorMessage} = props;
 
     const navigate = useNavigate();
 
-    const [pet, setPet] = useState(null);
-
-    const { petId } = useParams();
-
-    const getPetDetails = () => {
-        petServices.getPet(petId)
-            .then( response => {
-                setPet(response.data);
-            })
-            .catch( err => {
-                console.log(err);
-            }
-        );
-    }
-
     useEffect( () => {
-        getPetDetails();
+        props.functionToGetResources();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -85,39 +71,24 @@ const PetDetailsPage = () => {
 
     return (
         <>
+            <Typography variant="h2" marginTop={4}>🦊 <strong>{pet ? pet.name : "Loading..."}</strong> 🐯</Typography>
 
-            <Box sx={{
-                display: "flex",
-            }}>
-                <Box sx={{
-                    flex: 1,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-                    <EditPet callbackToUpdate={getPetDetails}/>
-                </Box>
+            {errorMessage &&
+                <Alert align="left" severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
+                </Alert>
+            }
 
-                <Box sx={{
-                    flex: 3,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-                    <Typography variant="h2" marginTop={4}>🦊 <strong>{pet ? pet.name : "Loading..."}</strong> 🐯</Typography>
-
-                    {pet ?
-                        <>
-                            {renderPetDetails()}
-                        </>
-                        :
-                        <Typography variant="h3">Loading...</Typography>
-                    }
-
-                </Box>
-            </Box>
-
+            {pet ?
+                <>
+                    {renderPetDetails()}
+                </>
+                :
+                <Typography variant="h3">Loading...</Typography>
+            }
         </>
-    )
+    );
+}
 
-};
-
-export default PetDetailsPage;
+export default PetDetails;

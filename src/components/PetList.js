@@ -1,12 +1,11 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import petServices from "../services/pet.services";
-import CreatePet from "../components/CreatePet";
 
-const PetListPage = () => {
 
-    const [pets, setPets] = useState(null);
+function PetList(props) {
+
+    const {resource: pets} = props;
 
     const navigate = useNavigate();
 
@@ -14,19 +13,9 @@ const PetListPage = () => {
         navigate(`/pets/${petId}`);
     }
 
-    const getAllPets = () => {
-        petServices.getAllPets()
-            .then( response => {
-                setPets(response.data);
-            })
-            .catch( err => {
-                console.log(err);
-            }
-        );
-    }
-
     useEffect( () => {
-        getAllPets();
+        props.functionToGetResources();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const renderPets = () => {
@@ -77,38 +66,17 @@ const PetListPage = () => {
         );
     }
 
-    return(
+    return (
         <>
-            <Box sx={{
-                display: "flex",
-            }}>
-                <Box sx={{
-                    flex: 1,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-                    <CreatePet callbackToUpdate={getAllPets}/>
-                </Box>
-
-                <Box sx={{
-                    flex: 3,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-
-                    {pets ?
-                        <>
-                            {renderPets()}
-                        </>
-                        :
-                        <Typography variant="h3">Loading...</Typography>
-                    }
-
-                </Box>
-            </Box>
+            {pets ?
+                <>
+                    {renderPets()}
+                </>
+                :
+                <Typography variant="h3">Loading...</Typography>
+            }
         </>
-    )
+    );
+}
 
-};
-
-export default PetListPage;
+export default PetList;

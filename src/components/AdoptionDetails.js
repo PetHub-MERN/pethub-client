@@ -1,25 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
-import EditAdoption from "../components/EditAdoption";
 
-function AdoptionDetailsPage() {
+function AdoptionList(props) {
 
-    const {adoptionId} = useParams();
+    const {resource: adoption, resourceId: adoptionId, errorMessage} = props;
 
     const navigate = useNavigate();
 
-    const [adoption, setAdoption] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
-
     useEffect(() => {
-        adoptionServices.getAdoption(adoptionId)
-            .then((response) => {
-                setAdoption(response.data);
-            }).catch((err) => {
-                setErrorMessage(err.response.data.message);
-            });
+        props.functionToGetResources();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -75,41 +66,28 @@ function AdoptionDetailsPage() {
             </Box>
         );
     }
+    
 
-    return(
+    return (
         <>
+            <Typography variant="h2" marginTop={4}>🦊 <strong>{adoption ? adoption.title : "Loading..."}</strong> 🐯</Typography>
 
-            <Box sx={{
-                display: "flex",
-            }}>
-                <Box sx={{
-                    flex: 1,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-                    <EditAdoption />
-                </Box>
+            {errorMessage &&
+                <Alert align="left" severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
+                </Alert>
+            }
 
-                <Box sx={{
-                    flex: 3,
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                }}>
-                    <Typography variant="h2" marginTop={4}>🦊 <strong>{adoption ? adoption.title : "Loading..."}</strong> 🐯</Typography>
-
-                    {adoption ?
-                        <>
-                            {renderAdoption()}
-                        </>
-                        :
-                        <Typography variant="h3">Loading...</Typography>
-                    }
-
-                </Box>
-            </Box>
-
+            {adoption ?
+                <>
+                    {renderAdoption()}
+                </>
+                :
+                <Typography variant="h3">Loading...</Typography>
+            }
         </>
     );
 }
 
-export default AdoptionDetailsPage;
+export default AdoptionList;

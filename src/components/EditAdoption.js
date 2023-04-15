@@ -57,11 +57,7 @@ function EditAdoption(props) {
 
         adoptionServices.editAdoption(adoptionId, updatedAdoptionData)
             .then((response) => {
-                setTitle("");
-                setSelectedPets([]);
                 setErrorMessage(null);
-                setDescription("");
-                setLocation("");
 
                 if(props.callbackToUpdate){
                     props.callbackToUpdate();

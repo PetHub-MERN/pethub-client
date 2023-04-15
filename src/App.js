@@ -7,11 +7,8 @@ import { Box, ThemeProvider, createTheme } from '@mui/material';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
-import PetListPage from './pages/PetListPage';
-import PetDetailsPage from './pages/PetDetailsPage';
-import AdoptionListPage from './pages/AdoptionListPage';
-import AdoptionDetailsPage from './pages/AdoptionDetailsPage';
 import UserProfilePage from './pages/UserProfilePage';
+import ResourcePage from './pages/ResourcePage';
 
 function App() {
 
@@ -40,12 +37,12 @@ function App() {
             <Route path='/login' element={<LoginPage />}/>
 
             {/* Pet Routes */}
-            <Route path='/pets' element={ <PetListPage /> } />
-            <Route path='/pets/:petId' element={ <PetDetailsPage /> } />
+            <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />
+            <Route path='/pets/:petId' element={ <ResourcePage page="pet-details" /> } />
             
             {/* Adoption Routes */}
-            <Route path='/adoptions' element={ <AdoptionListPage /> } />
-            <Route path='/adoptions/:adoptionId' element={ <AdoptionDetailsPage /> } />
+            <Route path='/adoptions' element={ <ResourcePage page="adoptions-list" /> } />
+            <Route path='/adoptions/:adoptionId' element={ <ResourcePage page="adoption-details" /> } />
 
             {/*  */}
             <Route path='/user-profile' element={ <UserProfilePage /> } />

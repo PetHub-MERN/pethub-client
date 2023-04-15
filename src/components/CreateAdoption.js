@@ -25,7 +25,7 @@ function CreateAdoption(props) {
                 const ownedPetsArr = petsArr.filter(pet => pet.owner._id === user._id);
                 setOwnedPets(ownedPetsArr);
             }).catch((err) => {
-                setErrorMessage(err);
+                setErrorMessage(err.response.data.message);
             });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
