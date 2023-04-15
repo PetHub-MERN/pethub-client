@@ -205,19 +205,19 @@ function CreateAdoption(props) {
                 m: 4
             }}>New <strong>Adoption</strong></Typography>
 
+            {errorMessage &&
+                <Alert align="left" severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
+                </Alert>
+            }
+
             {ownedPets ? 
                 <>
                     {renderForm()}
                 </>
                 :
                 <Typography variant="h5"><strong>Loading...</strong></Typography>
-            }
-
-            {errorMessage &&
-                <Alert align="left" severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {errorMessage}
-                </Alert>
             }
 
         </>

@@ -11,7 +11,6 @@ import PetListPage from './pages/PetListPage';
 import PetDetailsPage from './pages/PetDetailsPage';
 import AdoptionListPage from './pages/AdoptionListPage';
 import AdoptionDetailsPage from './pages/AdoptionDetailsPage';
-import PetEditPage from './pages/PetEditPage';
 import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
@@ -43,12 +42,10 @@ function App() {
             {/* Pet Routes */}
             <Route path='/pets' element={ <PetListPage /> } />
             <Route path='/pets/:petId' element={ <PetDetailsPage /> } />
-            <Route path='/pets/edit/:petId' element={ <PetEditPage /> } />
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <AdoptionListPage /> } />
             <Route path='/adoptions/:adoptionId' element={ <AdoptionDetailsPage /> } />
-            <Route path='/edit-adoption/:adoptionId' element={ <PetListPage /> } />
 
             {/*  */}
             <Route path='/user-profile' element={ <UserProfilePage /> } />

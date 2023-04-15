@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/auth.context";
+import { useEffect, useState } from "react";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-const CreatePet = (props) => {
+const EditPet = (props) => {
 
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
@@ -12,40 +12,50 @@ const CreatePet = (props) => {
     const [description, setDescription] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const { user } = useContext(AuthContext); 
+    const {petId} = useParams();
+
+    useEffect(() => {
+
+        petServices.getPet(petId)
+            .then((response) => {
+                const pet = response.data;
+
+                setName(pet.name);
+                setDateOfBirth(pet.dateOfBirth);
+                setDescription(pet.description);
+                setBreed(pet.breed);
+                setSpecies(pet.species);
+
+            }).catch((err) => {
+                setErrorMessage(err.response.data.message);
+            });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newPet = {
+        const updatedPet = {
             name,
             dateOfBirth,
             species,
             breed,
             description,
-            owner: user._id
         };
 
-        const addPet = () => {
-            petServices.createPet(newPet)
-                .then( response => {
-                    petServices.getAllPets();
-                    setName("");
-                    setBreed("");
-                    setDateOfBirth("");
-                    setDescription("");
-                    setSpecies("");
-                    setErrorMessage(null);
 
-                    props.callbackToUpdate();
-                })
-                .catch( err => {
-                    setErrorMessage(err.response.data.message);
-                }
-            );
-        }
+        petServices.editPet(petId, updatedPet)
+            .then( response => {
+                setErrorMessage(null);
 
-        addPet();
+                props.callbackToUpdate();
+            })
+            .catch( err => {
+                setErrorMessage(err.response.data.message);
+            }
+        );
+        
 
     }
 
@@ -86,7 +96,7 @@ const CreatePet = (props) => {
                         mb: 5
                     }}/>
 
-                    <Button sx={{mb: 3}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
+                    <Button sx={{mb: 3}} onClick={handleSubmit} variant="outlined">EDIT PET!</Button>
                 </Container>
             </form>
         );
@@ -96,7 +106,7 @@ const CreatePet = (props) => {
         <>
             <Typography variant="h3" sx={{
                 m: 4
-            }}>New <strong>Pet</strong></Typography>
+            }}>Edit <strong>Pet</strong></Typography>
 
             {errorMessage &&
                 <Alert align="left" severity="error">
@@ -106,10 +116,10 @@ const CreatePet = (props) => {
             }
 
             {renderForm()}
-            
+
         </>
     )
 
 };  
 
-export default CreatePet;
+export default EditPet;

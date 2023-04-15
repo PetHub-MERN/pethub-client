@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import petServices from "../services/pet.services";
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import EditPet from "../components/EditPet";
 
 const PetDetailsPage = () => {
 
@@ -14,7 +15,6 @@ const PetDetailsPage = () => {
     const getPetDetails = () => {
         petServices.getPet(petId)
             .then( response => {
-                console.log(response.data);
                 setPet(response.data);
             })
             .catch( err => {
@@ -42,15 +42,16 @@ const PetDetailsPage = () => {
             })
     }
 
-    return (
-        <Box 
-        sx={{
-            display: "flex",
-            flexDirection: {xs: "column", md:"row"},
-            justifyContent: "center",
-            m: 5
-        }}> 
-            {pet &&
+    const renderPetDetails = () => {
+        return (
+            <Box 
+            sx={{
+                display: "flex",
+                flexDirection: {xs: "column", md:"row"},
+                justifyContent: "center",
+                m: 5
+            }}> 
+                
                 <Card sx={{ maxWidth: "50%",
                             flexGrow: 1 }}
                 >
@@ -77,8 +78,44 @@ const PetDetailsPage = () => {
                         <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
                     </CardActions>
                 </Card>
-            }
-        </Box>
+                
+            </Box>
+        );
+    }
+
+    return (
+        <>
+
+            <Box sx={{
+                display: "flex",
+            }}>
+                <Box sx={{
+                    flex: 1,
+                    maxHeight: "80vh",
+                    overflow: "auto",
+                }}>
+                    <EditPet callbackToUpdate={getPetDetails}/>
+                </Box>
+
+                <Box sx={{
+                    flex: 3,
+                    maxHeight: "80vh",
+                    overflow: "auto",
+                }}>
+                    <Typography variant="h2" marginTop={4}>🦊 <strong>{pet ? pet.name : "Loading..."}</strong> 🐯</Typography>
+
+                    {pet ?
+                        <>
+                            {renderPetDetails()}
+                        </>
+                        :
+                        <Typography variant="h3">Loading...</Typography>
+                    }
+
+                </Box>
+            </Box>
+
+        </>
     )
 
 };
