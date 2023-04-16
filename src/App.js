@@ -9,6 +9,7 @@ import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
 import UserProfilePage from './pages/UserProfilePage';
 import ResourcePage from './pages/ResourcePage';
+import VerifyAuthentication from './components/VerifyAuthentication';
 
 function App() {
 
@@ -31,21 +32,23 @@ function App() {
           <Navbar />
 
           <Routes>
-            {/* Authentication Routes */}
+            
             <Route path='/' element={<HomePage />}/>
-            <Route path='/signup' element={<SignUpPage />}/>
-            <Route path='/login' element={<LoginPage />}/>
+            
+            {/* Authentication Routes */}
+            <Route path='/signup' element={<VerifyAuthentication logout> <SignUpPage /> </VerifyAuthentication>}/>
+            <Route path='/login' element={<VerifyAuthentication logout> <LoginPage /> </VerifyAuthentication>}/>
 
             {/* Pet Routes */}
             <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />
-            <Route path='/pets/:petId' element={ <ResourcePage page="pet-details" /> } />
+            <Route path='/pets/:petId' element={<VerifyAuthentication login> <ResourcePage page="pet-details" /> </VerifyAuthentication> } />
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <ResourcePage page="adoptions-list" /> } />
-            <Route path='/adoptions/:adoptionId' element={ <ResourcePage page="adoption-details" /> } />
+            <Route path='/adoptions/:adoptionId' element={<VerifyAuthentication login> <ResourcePage page="adoption-details" /> </VerifyAuthentication> } />
 
             {/*  */}
-            <Route path='/user-profile' element={ <UserProfilePage /> } />
+            <Route path='/user-profile' element={<VerifyAuthentication login> <UserProfilePage /> </VerifyAuthentication> } />
 
             {/* Fallback Route */}
             <Route path='*' element={<NoPageFound />}/>
