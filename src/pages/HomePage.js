@@ -5,10 +5,26 @@ import seeAdoptionsImage from '../assets/seeAdoptionsHomePage.jpg';
 import { Box, Card, CardActionArea, CardContent, Typography, Button, Container } from "@mui/material";
 import CardMedia from '@mui/material/CardMedia';
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import LoginForm from '../components/LoginForm';
+import SignUpForm from '../components/SignupForm';
+import { AuthContext } from '../context/auth.context';
 
 function HomePage() {
 
     const navigate = useNavigate();
+
+    const [welcomeContent, setWelcomeContent] = useState("welcome");
+
+    const { user, isLoggedIn } = useContext(AuthContext);
+
+    useEffect(() => {
+        if(isLoggedIn) {
+            setWelcomeContent("loggedin");
+        } else {
+            setWelcomeContent("welcome");
+        }
+    }, [isLoggedIn]);
 
     const handleCardClick = (option) => {
         switch (option){
@@ -29,11 +45,75 @@ function HomePage() {
         }
     }
 
+    const renderWelcomeContent = () => {
+        
+        switch(welcomeContent){
+
+            case "welcome":
+                return (
+                    <>
+                        <Typography variant='h2' sx={{
+                            m:2
+                        }}>Welcome to <strong>Pet</strong>Hub!</Typography>
+
+                        <Typography variant='h6' sx={{
+                            mb: 2,
+                        }}>Wether you are looking for a new Home for your Buddy, or for a Buddy to bring more life to your Home, <strong>Pet</strong>Hub has the solution! <br/> Interested?</Typography>
+
+                        <Button 
+                            variant='contained' 
+                            onClick={() => {setWelcomeContent("signup")}}
+                            sx={{
+                                width: "150px",
+                                mb: 2
+                            }
+                        }>Into The Fluff!</Button>
+                    </>
+                );
+            
+            case "login":
+                return (
+                    <>
+                        <LoginForm />
+                        <Typography>Don't have an Account? <Button variant="text" onClick={() => {setWelcomeContent("signup")}}>SignUp</Button></Typography>
+                    </>
+                );
+
+            case "signup":
+                return (
+                    <>
+                        <SignUpForm />
+                        <Typography>Already have an Account? <Button variant="text" onClick={() => {setWelcomeContent("login")}}>LogIn</Button></Typography>
+                    </>
+                );
+            
+            case "loggedin":
+                return (
+                    <>
+                        <Typography variant='h2' sx={{
+                            fontSize: {xs: "6vw", md: "3rem"},
+                            m:2
+
+                        }}>Welcome to <strong>Pet</strong>Hub{user ? `, ${user.name}` : ""}!</Typography>
+
+                        <Typography variant='h6' sx={{
+                            mb: 2,
+                            display: {xs: "none", md: "block"}
+                        }}>Wether you are looking for a new Home for your Buddy, or for a Buddy to bring more life to your Home, <strong>Pet</strong>Hub has the solution!
+                        </Typography>
+                    </>
+                );
+
+            default:
+                console.log("Invalid Option");
+        }
+    }
+
     return (
       <>
         <Box sx={{
             m: 0,
-            minHeight: "60vh",
+            height: "70vh",
             backgroundImage: `url(${seeAdoptionsImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -45,31 +125,28 @@ function HomePage() {
 
             <Container sx={{
                 borderRadius: 1,
-                backgroundColor: "rgba(77,77,77, 0.9)",
+                backgroundColor: "rgba(240,240,240, 0.9)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent:"center",
                 alignItems: "center",
-                width: "50%"
+                width: "60%",
             }}>
 
-                <Typography variant='h2' sx={{
-                    fontSize: {xs: "6vw", md: "3rem"},
-                    color: "white",
-                    m:2
+                <Box sx={{
+                    display: {xs: "none", md: "flex"},
+                    flexDirection: "column",
+                    justifyContent:"center",
+                    alignItems: "center",
+                }}>
+                    {renderWelcomeContent()}
+                </Box>
 
-                }}>Welcome to <strong>Pet</strong>Hub!</Typography>
-
-                <Typography variant='h6' sx={{
-                    mb: 2,
-                    color: "white",
-                    display: {xs: "none", md: "block"}
-                }}>Wether you are looking for a new Home for your Buddy, or for a Buddy to bring more life to your Home, <strong>Pet</strong>Hub has the solution! <br/> Interested?</Typography>
-
-                <Button variant='contained' sx={{
-                    width: "150px",
-                    mb: 2
-                }}>Into The Fluff!</Button>
+                <Box sx={{
+                    display: {xs: "block", md: "none"}
+                }}>
+                    <Typography sx={{fontSize: "6vw"}}>Welcome to <strong>Pet</strong>Hub!</Typography>
+                </Box>
 
             </Container>
 
