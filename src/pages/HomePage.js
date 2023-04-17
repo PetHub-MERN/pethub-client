@@ -145,7 +145,7 @@ function HomePage() {
                 <Box sx={{
                     display: {xs: "block", md: "none"}
                 }}>
-                    <Typography sx={{fontSize: "6vw"}}>Welcome to <strong>Pet</strong>Hub!</Typography>
+                    <Typography sx={{fontSize: "6vw"}}>Welcome {user ? <strong>{user.name}</strong> : <>to <strong>Pet</strong>Hub</>}!</Typography>
                 </Box>
 
             </Container>
