@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Button, Fab } from "@mui/material";
 import CreateAdoption from "../components/CreateAdoption";
 import CreatePet from "../components/CreatePet"
 import EditAdoption from "../components/EditAdoption";
 import EditPet from "../components/EditPet";
 import adoptionServices from "../services/adoption.services";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdoptionList from "../components/AdoptionList";
 import { useParams } from "react-router-dom";
 import AdoptionDetails from "../components/AdoptionDetails"
@@ -12,7 +12,7 @@ import petServices from "../services/pet.services";
 import PetList from "../components/PetList";
 import PetDetails from "../components/PetDetails";
 import IsOwner from "../components/IsOwner";
-
+import AddIcon from '@mui/icons-material/Add';
 
 function ResourcePage(props) {
 
@@ -74,25 +74,36 @@ function ResourcePage(props) {
 
     //For All
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+
+    useEffect(() => {
+        setIsFormOpen(false);
+    }, [page])
 
     const renderResourceRelatedForm = () => {
         return (
             <Box sx={{
+                display: isFormOpen ? "block" : "none",
                 flex: 1,
-                maxHeight: "80vh",
-                overflow: "auto",
+                maxHeight: {xs: "auto", md: "80vh"},
+                overflow: {xs: "none", md: "auto"},
             }}>
 
                 {/* Render resource related form component */}
 
                 {/* For Adoptions */}
-                {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions}/> }
-                {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails}/> }
+                {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
 
                 {/* For Pets */}
-                {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets}/> }
-                {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails}/> }
+                {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
                 
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={() => {setIsFormOpen(false)}}
+                >Hide Form</Button>
             </Box>
         );
     }
@@ -117,8 +128,8 @@ function ResourcePage(props) {
 
                 <Box sx={{
                     flex: 3,
-                    maxHeight: "80vh",
-                    overflow: "auto",
+                    maxHeight: {xs: "auto", md: "80vh"},
+                    overflow: {xs: "none", md: "auto"},
                 }}>
 
                     {/* Render resouce component */}
@@ -132,6 +143,22 @@ function ResourcePage(props) {
 
                 </Box>
             </Box>
+
+            <Fab 
+                variant="extended" 
+                size="medium" 
+                color="primary"
+                sx={{
+                    display: isFormOpen ? "none" : "auto",
+                    position: "absolute",
+                    bottom: "15vh",
+                    left: "5vw"
+                }}
+                onClick={() => setIsFormOpen(true)}
+            >
+                <AddIcon sx={{ mr: 1 }} />
+                Create
+            </Fab>
 
         </>
     );
