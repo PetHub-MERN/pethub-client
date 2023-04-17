@@ -102,6 +102,7 @@ function ResourcePage(props) {
 
             <Box sx={{
                 display: "flex",
+                flexDirection: {xs: "column" ,md: "row"}
             }}>
                 
                 {page === "pet-details" || page === "adoption-details" ?
