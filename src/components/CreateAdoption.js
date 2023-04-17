@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
+import imageServices from "../services/image.services";
 
 function CreateAdoption(props) {
 
@@ -15,6 +16,10 @@ function CreateAdoption(props) {
     const [location, setLocation] = useState("");
     const [selectedPets, setSelectedPets] = useState([]);
     const [description, setDescription] = useState("");
+
+    const [imageUrl, setImageUrl] = useState(null);
+    const [isUrlReady, setIsUrlReady] = useState(true);
+
     const [errorMessage, setErrorMessage] = useState(null);
 
 
@@ -33,29 +38,54 @@ function CreateAdoption(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newAdoptionData = {
-            title,
-            location,
-            description,
-            pets: selectedPets
+        if(isUrlReady) {
+
+            const newAdoptionData = {
+                title,
+                location,
+                description,
+                pets: selectedPets,
+                imageUrl
+            }
+    
+            adoptionServices.createAdoption(newAdoptionData)
+                .then((response) => {
+                    setTitle("");
+                    setSelectedPets([]);
+                    setErrorMessage(null);
+                    setDescription("");
+                    setLocation("");
+                    setImageUrl(null);
+    
+                    if(props.callbackToUpdate){
+                        props.callbackToUpdate();
+                    }
+    
+                }).catch((err) => {
+                    setErrorMessage(err.response.data.message);
+                });
+        } else {
+            setErrorMessage("Image is Loading!")
         }
-
-        adoptionServices.createAdoption(newAdoptionData)
-            .then((response) => {
-                setTitle("");
-                setSelectedPets([]);
-                setErrorMessage(null);
-                setDescription("");
-                setLocation("");
-
-                if(props.callbackToUpdate){
-                    props.callbackToUpdate();
-                }
-
-            }).catch((err) => {
-                setErrorMessage(err.response.data.message);
-            });
         
+    }
+
+    const handleFileUpload = (e) => {
+
+        setIsUrlReady(false);
+
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", e.target.files[0]);
+
+        imageServices.uploadImage(uploadData)
+            .then( response => {
+                setImageUrl(response.data.fileUrl);
+                setIsUrlReady(true);
+            })
+            .catch(err => {
+                setErrorMessage(err.response.data.message);
+            }
+        );
     }
 
     const handlePetSelection = (petId) => {
@@ -153,6 +183,8 @@ function CreateAdoption(props) {
                                 })}</Typography>
                             }
                         </Paper>
+
+                        <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
     
                         <Button 
                             size="large" 
@@ -182,7 +214,7 @@ function CreateAdoption(props) {
                     
                     <CardMedia 
                         sx={{ height: 140 }}
-                        image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                        image={pet.imageUrl}
                         title={pet.name}
                     />
                     <Typography variant="h6">{pet.name}</Typography>

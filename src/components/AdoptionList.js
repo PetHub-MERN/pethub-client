@@ -31,7 +31,7 @@ function AdoptionList(props) {
                         }}>
                             <CardMedia 
                                 sx={{ height: 140 }}
-                                image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                                image={adoption.imageUrl}
                                 title={adoption.title}
                             />
                             <Typography variant="h6"><strong>{adoption.title}</strong></Typography>

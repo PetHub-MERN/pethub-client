@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
+import imageServices from "../services/image.services";
 
 const CreatePet = (props) => {
 
@@ -12,21 +13,26 @@ const CreatePet = (props) => {
     const [description, setDescription] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
+    const [imageUrl, setImageUrl] = useState(null);
+    const [isUrlReady, setIsUrlReady] = useState(true);
+
     const { user } = useContext(AuthContext); 
     
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newPet = {
-            name,
-            dateOfBirth,
-            species,
-            breed,
-            description,
-            owner: user._id
-        };
+        if(isUrlReady) {
 
-        const addPet = () => {
+            const newPet = {
+                name,
+                dateOfBirth,
+                species,
+                breed,
+                description,
+                imageUrl,
+                owner: user._id
+            };
+    
             petServices.createPet(newPet)
                 .then( response => {
                     petServices.getAllPets();
@@ -35,6 +41,7 @@ const CreatePet = (props) => {
                     setDateOfBirth("");
                     setDescription("");
                     setSpecies("");
+                    setImageUrl(null)
                     setErrorMessage(null);
 
                     props.callbackToUpdate();
@@ -43,10 +50,27 @@ const CreatePet = (props) => {
                     setErrorMessage(err.response.data.message);
                 }
             );
+        } else {
+            setErrorMessage("Image is Loading!")
         }
+    }
 
-        addPet();
+    const handleFileUpload = (e) => {
 
+        setIsUrlReady(false);
+
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", e.target.files[0]);
+
+        imageServices.uploadImage(uploadData)
+            .then( response => {
+                setImageUrl(response.data.fileUrl);
+                setIsUrlReady(true);
+            })
+            .catch(err => {
+                setErrorMessage(err.response.data.message);
+            }
+        );
     }
 
     const renderForm = () => {
@@ -85,6 +109,8 @@ const CreatePet = (props) => {
                         mt: 3,
                         mb: 5
                     }}/>
+
+                    <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
 
                     <Button sx={{mb: 3}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
                 </Container>

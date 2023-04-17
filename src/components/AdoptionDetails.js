@@ -44,13 +44,13 @@ function AdoptionList(props) {
                 >
                     <CardHeader 
                         align="left"
-                        avatar={<Avatar>{adoption.announcer.name.charAt(0)}</Avatar>}
+                        avatar={<Avatar src={adoption.announcer.imageUrl}></Avatar>}
                         title={adoption.announcer.name}
                         subheader="Announcer"
                     />
                     <CardMedia 
                         sx={{ height:"300px" }}
-                        image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                        image={adoption.imageUrl}
                         title={adoption.title}
                     />
                     <CardContent>

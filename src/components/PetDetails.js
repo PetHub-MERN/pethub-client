@@ -44,13 +44,13 @@ function PetDetails(props) {
                 >
                     <CardHeader 
                         align="left"
-                        avatar={<Avatar>{pet.owner.name.charAt(0)}</Avatar>}
+                        avatar={<Avatar src={pet.owner.imageUrl}></Avatar>}
                         title={pet.owner.name}
                         subheader="Owner"
                     />
                     <CardMedia 
                         sx={{ height:"300px" }}
-                        image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                        image={pet.imageUrl}
                         title={pet.name}
                     />
                     <CardContent>

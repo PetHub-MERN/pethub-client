@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class UserServices {
+class ImageServices {
 
     constructor() {
         this.api = axios.create({baseURL: process.env.REACT_APP_API_URL || "http://localhost:5005"});
@@ -16,16 +16,11 @@ class UserServices {
         })
     }
 
-    getUser = (userId) => {
-        return this.api.get(`/api/users/${userId}`);
+    uploadImage = (file) => {
+        return this.api.post(`/api/upload`, file)
     }
-
-    editUser = (userId, updatedUserData) => {
-        return this.api.put(`/api/users/${userId}`, updatedUserData);
-    }
-
 }
 
-const userServices = new UserServices();
+const imageServices = new ImageServices();
 
-export default userServices;
+export default imageServices;

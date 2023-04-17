@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import userServices from "../services/user.services";
 import { Alert, AlertTitle, Button, Container, Typography } from "@mui/material";
 import { AuthContext } from "../context/auth.context";
+import imageServices from "../services/image.services";
 
 const EditProfile = (props) => {
 
-    const [userProfileImgUrl, setUserProfileImgUrl] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
     const [isUrlReady, setIsUrlReady] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState(null);
@@ -17,11 +18,11 @@ const EditProfile = (props) => {
         setIsUrlReady(false);
 
         const uploadData = new FormData();
-        uploadData.append("userProfileImgUrl", e.target.files[0]);
+        uploadData.append("imageUrl", e.target.files[0]);
 
-        userServices.uploadImage(uploadData)
+        imageServices.uploadImage(uploadData)
             .then( response => {
-                setUserProfileImgUrl(response.data.fileUrl);
+                setImageUrl(response.data.fileUrl);
                 setIsUrlReady(true);
             })
             .catch(err => {
@@ -34,9 +35,9 @@ const EditProfile = (props) => {
         e.preventDefault();
 
         if(isUrlReady) {
-            userServices.editUser(user._id, { userProfileImgUrl })
+            userServices.editUser(user._id, { imageUrl })
                 .then((response) => {
-                    console.log(userProfileImgUrl);
+                    console.log(imageUrl);
                     props.callbackToUpdateUser();
                 })
                 .catch((err) => {
@@ -58,7 +59,7 @@ const EditProfile = (props) => {
                 width: "inherit"
                 }}>
                     
-                    <input type="file" name="userProfileImgUrl" onChange={(e) => handleFileUpload(e)} />
+                    <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
 
                     <Button sx={{mb: 3}} onClick={handleFormSubmit} variant="outlined">EDIT PROFILE!</Button>
                 </Container>

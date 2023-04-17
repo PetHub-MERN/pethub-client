@@ -55,7 +55,7 @@ function UserProfilePage() {
                                 marginTop: "1%"
                             }}>
                                 <Paper elevation={3} sx={{maxWidth:"50%"}}>
-                                    <img src={userFromDb.userProfileImgUrl} alt={userFromDb.name} style={{maxWidth: "10vw", margin: "1em", borderRadius: "50%"}}/>
+                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "10vw", margin: "1em", borderRadius: "50%"}}/>
                                     <Typography variant="h4">{userFromDb.name}</Typography>
                                     <Typography variant="h5">{userFromDb.email}</Typography>
                                     <Button variant="contained" sx={{m:2}}>EDIT</Button>

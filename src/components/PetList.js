@@ -43,7 +43,7 @@ function PetList(props) {
                                     }}>
                                     <CardMedia 
                                         sx={{ height: 140 }}
-                                        image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                                        image={pet.imageUrl}
                                         title={pet.name}
                                     />
                                     <CardContent>
