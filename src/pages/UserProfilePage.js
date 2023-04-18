@@ -139,76 +139,105 @@ function UserProfilePage() {
                 <Box sx={{
                     flex: 1,
                     display: "flex",
-                    flexDirection: {xs: "row", md: "column"}
+                    flexDirection: {xs: "row", md: "column"},
+                    height: {xs: "15vh", md: "80vh"}
                 }}>
+
                     <Box sx={{
-                        backgroundImage:`url(${registerAPetImage})`, 
-                        backgroundSize:"cover", 
-                        height:"25%", 
+                        flex: 1,
                         display: "flex", 
-                        flexDirection: "column", 
-                        justifyContent: "center", 
-                        alignItems:"center", 
-                        transition: "opacity .2s ease-in-out",
-                        "&:hover": {
-                            opacity: 0.8
-                        }
-                    }}>
-                        <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px"}} variant="h4">See your <strong>Pets</strong>!</Typography>
-                        <Button variant="contained" onClick={() => {handleSelection("adoptions")}}>YOUR ADOPTIONS</Button>
+                        flexDirection: {xs:"column", sm: "row", md: "column"},
+                    }}>        
+                        <Box 
+                            sx={{
+                                backgroundImage:`url(${registerAPetImage})`, 
+                                backgroundSize:"cover", 
+                                flex: 1,
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "center", 
+                                alignItems:"center",
+                                transition: "opacity .2s ease-in-out",
+                                "&:hover": {
+                                    opacity: 0.8,
+                                    cursor: "pointer"
+                                }      
+                            }}
+
+                            onClick={() => {handleSelection("pets")}}
+                        >
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Pets</strong>!</Typography>
+                        </Box>
+
+                        <Box 
+                            sx={{
+                                backgroundImage:`url(${seeAllPetsImage})`, 
+                                backgroundSize:"cover", 
+                                flex: 1,
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "center", 
+                                alignItems:"center",
+                                transition: "opacity .2s ease-in-out",
+                                "&:hover": {
+                                    opacity: 0.8,
+                                    cursor: "pointer"
+                                }
+                            }}
+                            onClick={() => {handleSelection("adoptions")}}
+                        >
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Adoptions</strong>!</Typography>
+                        </Box>
+
                     </Box>
+
                     <Box sx={{
-                        backgroundImage:`url(${seeAllPetsImage})`, 
-                        backgroundSize:"cover", 
-                        height:"25%", 
+                        flex: 1,
                         display: "flex", 
-                        flexDirection: "column", 
-                        justifyContent: "center", 
-                        alignItems:"center",
-                        transition: "opacity .2s ease-in-out",
-                        "&:hover": {
-                            opacity: 0.8
-                        }
+                        flexDirection: {xs:"column", sm: "row", md: "column"},
                     }}>
-                        <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px"}} variant="h4">See your <strong>Adoptions</strong>!</Typography>
-                        <Button variant="contained" onClick={() => {handleSelection("pets")}}>YOUR PETS</Button>
-                    </Box>
-                    <Box sx={{
-                        backgroundImage:`url(${createAdoptionImage})`, 
-                        backgroundSize:"cover", 
-                        height:"25%", 
-                        display: "flex", 
-                        flexDirection: "column", 
-                        justifyContent: "center", 
-                        alignItems:"center",
-                        transition: "opacity .2s ease-in-out",
-                        "&:hover": {
-                            opacity: 0.8
-                        }
-                    }}>
-                        <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px"}} variant="h4">See your <strong>Profile</strong>!</Typography>
-                        <Button variant="contained" onClick={() => {handleSelection("profile")}}>YOUR PROFILE</Button>
-                    </Box>
-                    <Box sx={{
-                        backgroundImage:`url(${seeAdoptionsImage})`, 
-                        backgroundSize:"cover", 
-                        height:"25%", 
-                        display: "flex", 
-                        flexDirection: "column", 
-                        justifyContent: "center", 
-                        alignItems:"center",
-                        transition: "opacity .2s ease-in-out",
-                        "&:hover": {
-                            opacity: 0.8
-                        }
-                    }}>
-                        <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px"}} variant="h4">Edit your <strong>Profile</strong>!</Typography>
-                        <Button variant="contained" onClick={() => {handleSelection("edit")}}>EDIT PROFILE</Button>
-                    </Box>
+                        <Box 
+                            sx={{
+                                backgroundImage:`url(${createAdoptionImage})`, 
+                                backgroundSize:"cover", 
+                                flex: 1,
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "center", 
+                                alignItems:"center",
+                                transition: "opacity .2s ease-in-out",
+                                "&:hover": {
+                                    opacity: 0.8,
+                                    cursor: "pointer"
+                                }
+                            }}
+                            onClick={() => {handleSelection("profile")}}
+                        >
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Profile</strong>!</Typography>
+                        </Box>
+
+                        <Box 
+                            sx={{
+                                backgroundImage:`url(${seeAdoptionsImage})`, 
+                                backgroundSize:"cover", 
+                                flex: 1,
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "center", 
+                                alignItems:"center",
+                                transition: "opacity .2s ease-in-out",
+                                "&:hover": {
+                                    opacity: 0.8,
+                                    cursor: "pointer"
+                                }
+                            }}
+                            onClick={() => {handleSelection("edit")}}
+                        >
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Edit <strong>Profile</strong>!</Typography>
+                        </Box>
+                    </Box>                    
                 </Box>
             </Box>
-
-
         </>
     );
 }
