@@ -4,12 +4,14 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NoPageFound from './pages/NoPageFound';
 import { Box, ThemeProvider, createTheme } from '@mui/material';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
 import Footer from './components/Footer';
 import UserProfilePage from './pages/UserProfilePage';
 import ResourcePage from './pages/ResourcePage';
 import VerifyAuthentication from './components/VerifyAuthentication';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignupForm';
+import CreatePet from './components/CreatePet';
+import CreateAdoption from './components/CreateAdoption';
 
 function App() {
 
@@ -36,16 +38,19 @@ function App() {
             <Route path='/' element={<HomePage />}/>
             
             {/* Authentication Routes */}
-            <Route path='/signup' element={<VerifyAuthentication logout> <SignUpPage /> </VerifyAuthentication>}/>
-            <Route path='/login' element={<VerifyAuthentication logout> <LoginPage /> </VerifyAuthentication>}/>
+            <Route path='/signup' element={<VerifyAuthentication logout> <SignUpForm /> </VerifyAuthentication>}/>
+            <Route path='/login' element={<VerifyAuthentication logout> <LoginForm /> </VerifyAuthentication>}/>
 
             {/* Pet Routes */}
             <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />
             <Route path='/pets/:petId' element={<VerifyAuthentication login> <ResourcePage page="pet-details" /> </VerifyAuthentication> } />
+            <Route path='/register-pet' element={<VerifyAuthentication login> <CreatePet /> </VerifyAuthentication> } />
+
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <ResourcePage page="adoptions-list" /> } />
             <Route path='/adoptions/:adoptionId' element={<VerifyAuthentication login> <ResourcePage page="adoption-details" /> </VerifyAuthentication> } />
+            <Route path='/register-adoption' element={<VerifyAuthentication login> <CreateAdoption /> </VerifyAuthentication> } />
 
             {/*  */}
             <Route path='/user-profile' element={<VerifyAuthentication login> <UserProfilePage /> </VerifyAuthentication> } />
