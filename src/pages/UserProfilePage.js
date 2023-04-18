@@ -56,10 +56,10 @@ function UserProfilePage() {
                                 display: "flex", 
                                 justifyContent:"center", 
                                 alignContent: "center",
-                                marginTop: "1%"
+                                marginTop: "12%"
                             }}>
-                                <Paper elevation={3} sx={{maxWidth:"50%"}}>
-                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "10vw", margin: "1em", borderRadius: "50%"}}/>
+                                <Paper elevation={3} sx={{maxWidth:"50%", padding:"20px"}}>
+                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "10vw", width:"10vw", height:"10vw", margin: "1em", borderRadius: "50%"}}/>
                                     <Typography variant="h4">{userFromDb.name}</Typography>
                                     <Typography variant="h5">{userFromDb.email}</Typography>
                                     <Button variant="contained" sx={{m:2}}>EDIT</Button>
@@ -158,6 +158,7 @@ function UserProfilePage() {
                                 justifyContent: "center", 
                                 alignItems:"center",
                                 transition: "opacity .2s ease-in-out",
+                                minHeight: {sm: "100px", xs: "50px"},
                                 "&:hover": {
                                     opacity: 0.8,
                                     cursor: "pointer"
@@ -166,19 +167,20 @@ function UserProfilePage() {
 
                             onClick={() => {handleSelection("pets")}}
                         >
-                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Pets</strong>!</Typography>
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Your <strong>Pets</strong>!</Typography>
                         </Box>
 
                         <Box 
                             sx={{
                                 backgroundImage:`url(${seeAllPetsImage})`, 
-                                backgroundSize:"cover", 
+                                backgroundSize:"cover",
                                 flex: 1,
                                 display: "flex", 
                                 flexDirection: "column", 
                                 justifyContent: "center", 
                                 alignItems:"center",
                                 transition: "opacity .2s ease-in-out",
+                                minHeight: {sm: "100px", xs: "50px"},
                                 "&:hover": {
                                     opacity: 0.8,
                                     cursor: "pointer"
@@ -186,7 +188,7 @@ function UserProfilePage() {
                             }}
                             onClick={() => {handleSelection("adoptions")}}
                         >
-                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Adoptions</strong>!</Typography>
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Your <strong>Adoptions</strong>!</Typography>
                         </Box>
 
                     </Box>
@@ -206,6 +208,7 @@ function UserProfilePage() {
                                 justifyContent: "center", 
                                 alignItems:"center",
                                 transition: "opacity .2s ease-in-out",
+                                minHeight: {sm: "100px", xs: "50px"},
                                 "&:hover": {
                                     opacity: 0.8,
                                     cursor: "pointer"
@@ -213,7 +216,7 @@ function UserProfilePage() {
                             }}
                             onClick={() => {handleSelection("profile")}}
                         >
-                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Your <strong>Profile</strong>!</Typography>
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Your <strong>Profile</strong>!</Typography>
                         </Box>
 
                         <Box 
@@ -226,6 +229,7 @@ function UserProfilePage() {
                                 justifyContent: "center", 
                                 alignItems:"center",
                                 transition: "opacity .2s ease-in-out",
+                                minHeight: {sm: "100px", xs: "50px"},
                                 "&:hover": {
                                     opacity: 0.8,
                                     cursor: "pointer"
@@ -233,7 +237,7 @@ function UserProfilePage() {
                             }}
                             onClick={() => {handleSelection("edit")}}
                         >
-                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom:"5px", fontSize: {xs: "4vw", md:"2em"}}} variant="h4">Edit <strong>Profile</strong>!</Typography>
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Edit <strong>Profile</strong>!</Typography>
                         </Box>
                     </Box>                    
                 </Box>

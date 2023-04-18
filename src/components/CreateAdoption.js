@@ -5,6 +5,7 @@ import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import imageServices from "../services/image.services";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 function CreateAdoption(props) {
 
@@ -108,6 +109,7 @@ function CreateAdoption(props) {
                 <>
                     <Typography variant="h5">You don't have any registered Pets yet!</Typography>
                     <Link to={"/register-pet"}><strong>Register a new Pet!</strong></Link>
+                    <br />
                 </>
             );
         } else {
@@ -173,18 +175,21 @@ function CreateAdoption(props) {
                             
                         </Paper>
     
-                        <Paper>
+                        <Paper sx={{mt: 1, mb: 1}}>
                             {selectedPets.length === 0 ? 
                                 <Typography><strong>You don't have any Pet selected</strong></Typography>
                                 :
                                 <Typography><strong>Pets Selected:</strong> {selectedPets.map((petId) => {
                                     const pet = ownedPets.filter((pet) => {return pet._id === petId})[0];
-                                    return ` ${pet.name};`
+                                    return ` ${pet.name}, `
                                 })}</Typography>
                             }
                         </Paper>
 
-                        <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
+                        <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                            Upload Photo
+                            <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
+                        </Button>
     
                         <Button 
                             size="large" 

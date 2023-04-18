@@ -3,6 +3,7 @@ import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 import imageServices from "../services/image.services";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const CreatePet = (props) => {
 
@@ -110,9 +111,12 @@ const CreatePet = (props) => {
                         mb: 5
                     }}/>
 
-                    <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
+                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                        Upload Photo
+                        <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
+                    </Button>
 
-                    <Button sx={{mb: 3}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
+                    <Button sx={{mb: 3, mt: 2}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
                 </Container>
             </form>
         );

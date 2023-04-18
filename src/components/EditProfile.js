@@ -3,6 +3,7 @@ import userServices from "../services/user.services";
 import { Alert, AlertTitle, Button, Container, Typography } from "@mui/material";
 import { AuthContext } from "../context/auth.context";
 import imageServices from "../services/image.services";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const EditProfile = (props) => {
 
@@ -45,7 +46,7 @@ const EditProfile = (props) => {
                 }
             );
         } else {
-            setErrorMessage("Image not Ready!");
+            setErrorMessage("The image is loading. Please wait and try again!");
         }
     }
 
@@ -59,9 +60,12 @@ const EditProfile = (props) => {
                 width: "inherit"
                 }}>
                     
-                    <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)} />
+                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                        Upload Photo
+                        <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
+                    </Button>
 
-                    <Button sx={{mb: 3}} onClick={handleFormSubmit} variant="outlined">EDIT PROFILE!</Button>
+                    <Button sx={{mb: 3, mt: 3}} onClick={handleFormSubmit} variant="outlined">EDIT PROFILE!</Button>
                 </Container>
             </form>
         ); 
