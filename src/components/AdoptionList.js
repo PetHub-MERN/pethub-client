@@ -25,42 +25,54 @@ function AdoptionList(props) {
     const renderAdoptions = () => {
         return (
             <>
+                {adoptions.length === 0 ? 
+                    <Typography variant="h2">There are no adoptions registered in the DB...</Typography>
+                    :
 
-                {!props.isProfilePage &&
-                    <TextField variant="outlined" type="text" label="Search by location:" value={searchLocation} onChange={(e) => {setSearchLocation(e.target.value)}} sx={{
-                        m: 4, mb:0, width:"60%"
-                    }}/>
+                    <>
+                        {!props.isProfilePage &&
+                            <TextField variant="outlined" type="text" label="Search by location:" value={searchLocation} onChange={(e) => {setSearchLocation(e.target.value)}} sx={{
+                                m: 4, mb:0, width:"60%"
+                            }}/>
+                        }
+
+                        <Box sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                            m: 4
+                        }}>
+
+                            {filteredAdoptions.length === 0 ? 
+                                <Typography variant="h4">There are no adoptions matching your search...</Typography>
+                                :
+                                <>
+                                    {filteredAdoptions.map(adoption => {
+                                        return (
+                                            <Card
+                                                key={adoption._id}
+                                                sx={{
+                                                    width: 300,
+                                                    m:3
+                                            }}>
+                                                <CardMedia 
+                                                    sx={{ height: 140 }}
+                                                    image={adoption.imageUrl}
+                                                    title={adoption.title}
+                                                />
+                                                <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
+                                                <Typography><strong>Location: {adoption.location}</strong></Typography>
+                                                <Typography><strong>Posted by: {adoption.announcer.name}</strong></Typography>
+                                                <Button onClick={() => {navigate(`/adoptions/${adoption._id}`)}}>See Details</Button>
+                                            </Card>
+                                        );
+                                    })}
+                                </>
+                            }
+
+                        </Box>
+                    </>
                 }
-
-                <Box sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    m: 4
-                }}>
-
-                    {filteredAdoptions.map(adoption => {
-                        return (
-                            <Card
-                                key={adoption._id}
-                                sx={{
-                                    width: 300,
-                                    m:3
-                            }}>
-                                <CardMedia 
-                                    sx={{ height: 140 }}
-                                    image={adoption.imageUrl}
-                                    title={adoption.title}
-                                />
-                                <Typography variant="h6"><strong>{adoption.title}</strong></Typography>
-                                <Typography><strong>Location: {adoption.location}</strong></Typography>
-                                <Typography><strong>Posted by: {adoption.announcer.name}</strong></Typography>
-                                <Button onClick={() => {navigate(`/adoptions/${adoption._id}`)}}>See Details</Button>
-                            </Card>
-                        );
-                    })}
-
-                </Box>
             </>
         );
     }

@@ -94,7 +94,7 @@ function HomePage() {
                             fontSize: {xs: "6vw", md: "3rem"},
                             m:2
 
-                        }}>Welcome to <strong>Pet</strong>Hub{user ? `, ${user.name}` : ""}!</Typography>
+                        }}>Welcome to <strong>Pet</strong>Hub{user ? <>, <strong>{user.name}</strong></> : ""}!</Typography>
 
                         <Typography variant='h6' sx={{
                             mb: 2,

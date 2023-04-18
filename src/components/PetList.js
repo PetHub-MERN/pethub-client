@@ -36,61 +36,73 @@ function PetList(props) {
     const renderPets = () => {
         return(
             <>
-                
-                <Select 
-                    align="left"
-                    value={speciesFilter}
-                    onChange={(e) => {setSpeciesFilter(e.target.value)}}
-                    sx={{m: 4, mb:0, width:"60%"}}
-                >
-                    <MenuItem value="Dog">Dog</MenuItem>
-                    <MenuItem value="Cat">Cat</MenuItem>
-                    <MenuItem value="Bird">Bird</MenuItem>
-                    <MenuItem value="Reptile">Reptile</MenuItem>
-                    <MenuItem value="Fish">Fish</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                    <MenuItem value="All">All</MenuItem>
-                </Select>
-                <FormHelperText sx={{textAlign:"center"}}>Filter by Species</FormHelperText>
+                {pets.length === 0 ?
+                    <Typography variant="h2">There are no adoptions registered in the DB...</Typography>
+                    :
+                    <>
+                        <Select 
+                            align="left"
+                            value={speciesFilter}
+                            onChange={(e) => {setSpeciesFilter(e.target.value)}}
+                            sx={{m: 4, mb:0, width:"60%"}}
+                        >
+                            <MenuItem value="Dog">Dog</MenuItem>
+                            <MenuItem value="Cat">Cat</MenuItem>
+                            <MenuItem value="Bird">Bird</MenuItem>
+                            <MenuItem value="Reptile">Reptile</MenuItem>
+                            <MenuItem value="Fish">Fish</MenuItem>
+                            <MenuItem value="Other">Other</MenuItem>
+                            <MenuItem value="All">All</MenuItem>
+                        </Select>
+                        <FormHelperText sx={{textAlign:"center"}}>Filter by Species</FormHelperText>
 
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: {xs: "column", md:"row"},
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                    m: 5
-                }}>
-                    {pets && 
-                        filteredPets.map( pet => {
-                            return(
-                                <Card
-                                    key={pet._id}
-                                    sx={{ 
-                                        maxWidth: {sm: "100%", md: 345},
-                                        m: 2,
-                                        flexGrow: 1
-                                    }}>
-                                    <CardMedia 
-                                        sx={{ height: 140 }}
-                                        image={pet.imageUrl}
-                                        title={pet.name}
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            {pet.name}
-                                        </Typography>
-                                        <Chip sx={{m:1}} label={pet.species} color="warning" />
-                                        <Chip sx={{m:1}} label={pet.breed} color="warning" />
-                                        <Chip sx={{m:1}} label={pet.dateOfBirth.split('T')[0]} color="warning" />
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button variant="outlined" onClick={() => {handleClickDetails(pet._id)}}>LEARN MORE</Button>
-                                    </CardActions>
-                                </Card>
-                            )
-                        })
-                    }
-                </Box>
+                        <Box sx={{
+                            display: "flex",
+                            flexDirection: {xs: "column", md:"row"},
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                            m: 5
+                        }}>
+
+                            {filteredPets.length === 0 ?
+                                <Typography variant="h4">There are no pets matching your search...</Typography>
+                                :
+                                <>
+                                    {pets && 
+                                        filteredPets.map( pet => {
+                                            return(
+                                                <Card
+                                                    key={pet._id}
+                                                    sx={{ 
+                                                        maxWidth: {sm: "100%", md: 345},
+                                                        m: 2,
+                                                        flexGrow: 1
+                                                    }}>
+                                                    <CardMedia 
+                                                        sx={{ height: 140 }}
+                                                        image={pet.imageUrl}
+                                                        title={pet.name}
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">
+                                                            {pet.name}
+                                                        </Typography>
+                                                        <Chip sx={{m:1}} label={pet.species} color="warning" />
+                                                        <Chip sx={{m:1}} label={pet.breed} color="warning" />
+                                                        <Chip sx={{m:1}} label={pet.dateOfBirth.split('T')[0]} color="warning" />
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Button variant="outlined" onClick={() => {handleClickDetails(pet._id)}}>LEARN MORE</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            );
+                                        })
+                                    }
+                                </>
+                            }
+                        </Box>
+                    </>
+                }
             </>
         );
     }
