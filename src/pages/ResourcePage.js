@@ -6,7 +6,7 @@ import EditPet from "../components/EditPet";
 import adoptionServices from "../services/adoption.services";
 import { useContext, useEffect, useState } from "react";
 import AdoptionList from "../components/AdoptionList";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AdoptionDetails from "../components/AdoptionDetails"
 import petServices from "../services/pet.services";
 import PetList from "../components/PetList";
@@ -19,7 +19,9 @@ function ResourcePage(props) {
 
     const {page} = props;
 
-    const { logOutUser } = useContext(AuthContext);
+    const { logOutUser, isLoggedIn } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     //Adoptions List
     const [adoptions, setAdoptions] = useState(null);
@@ -101,6 +103,14 @@ function ResourcePage(props) {
         setIsFormOpen(false);
     }, [page])
 
+    const handleFormOpen = () => {
+        if(isLoggedIn) {
+            setIsFormOpen(true)
+        } else {
+            navigate("/login");
+        }
+    }
+
     const renderResourceRelatedForm = () => {
         return (
             <Box sx={{
@@ -175,7 +185,7 @@ function ResourcePage(props) {
                     bottom: "12vh",
                     left: "5vw"
                 }}
-                onClick={() => setIsFormOpen(true)}
+                onClick={handleFormOpen}
             >
                 <AddIcon sx={{ mr: 1 }} />
                 Create
