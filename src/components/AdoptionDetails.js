@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import IsOwner from "./IsOwner";
 
-function AdoptionList(props) {
+function AdoptionDetails(props) {
 
     const {resource: adoption, resourceId: adoptionId, errorMessage} = props;
 
@@ -93,4 +93,4 @@ function AdoptionList(props) {
     );
 }
 
-export default AdoptionList;
+export default AdoptionDetails;

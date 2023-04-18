@@ -4,7 +4,7 @@ import CreatePet from "../components/CreatePet"
 import EditAdoption from "../components/EditAdoption";
 import EditPet from "../components/EditPet";
 import adoptionServices from "../services/adoption.services";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AdoptionList from "../components/AdoptionList";
 import { useParams } from "react-router-dom";
 import AdoptionDetails from "../components/AdoptionDetails"
@@ -13,13 +13,18 @@ import PetList from "../components/PetList";
 import PetDetails from "../components/PetDetails";
 import IsOwner from "../components/IsOwner";
 import AddIcon from '@mui/icons-material/Add';
+import { AuthContext } from "../context/auth.context";
 
 function ResourcePage(props) {
 
     const {page} = props;
 
+    const { logOutUser } = useContext(AuthContext);
+
     //Adoptions List
     const [adoptions, setAdoptions] = useState(null);
+
+
 
     const getAllAdoptions = () => {
         adoptionServices.getAllAdoptions()
@@ -27,6 +32,10 @@ function ResourcePage(props) {
                 setAdoptions(response.data);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
+                
+                if(err.response.data.message === "Session Expired") {
+                    logOutUser();
+                }
             });
     }
     
@@ -40,6 +49,10 @@ function ResourcePage(props) {
                 setAdoption(response.data);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
+                
+                if(err.response.data.message === "Session Expired") {
+                    logOutUser();
+                }
             });
     }
 
@@ -52,7 +65,11 @@ function ResourcePage(props) {
                 setPets(response.data);
             })
             .catch( err => {
-                console.log(err);
+                setErrorMessage(err.response.data.message);
+                
+                if(err.response.data.message === "Session Expired") {
+                    logOutUser();
+                }
             }
         );
     }
@@ -67,7 +84,11 @@ function ResourcePage(props) {
                 setPet(response.data);
             })
             .catch( err => {
-                console.log(err);
+                setErrorMessage(err.response.data.message);
+                
+                if(err.response.data.message === "Session Expired") {
+                    logOutUser();
+                }
             }
         );
     }

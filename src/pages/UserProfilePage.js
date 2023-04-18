@@ -21,7 +21,7 @@ function UserProfilePage() {
 
     const [userFromDb, setUserFromDb] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-    const { user } = useContext(AuthContext);
+    const { user, logOutUser } = useContext(AuthContext);
 
     const getUserFromDB = () => {
         userServices.getUser(user._id)
@@ -31,6 +31,10 @@ function UserProfilePage() {
             })
             .catch((err) => {
                 setErrorMessage(err.response.data.message);
+
+                if(err.response.data.message === "Session Expired") {
+                    logOutUser();
+                }
             }
         );
     }
