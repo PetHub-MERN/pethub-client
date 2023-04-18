@@ -12,6 +12,8 @@ import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignupForm';
 import CreatePet from './components/CreatePet';
 import CreateAdoption from './components/CreateAdoption';
+import EditAdoption from './components/EditAdoption';
+import EditPet from './components/EditPet';
 
 function App() {
 
@@ -45,12 +47,14 @@ function App() {
             <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />
             <Route path='/pets/:petId' element={<VerifyAuthentication login> <ResourcePage page="pet-details" /> </VerifyAuthentication> } />
             <Route path='/register-pet' element={<VerifyAuthentication login> <CreatePet /> </VerifyAuthentication> } />
+            <Route path='/edit-pet/:petId' element={<VerifyAuthentication login> <EditPet /> </VerifyAuthentication> } />
 
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <ResourcePage page="adoptions-list" /> } />
             <Route path='/adoptions/:adoptionId' element={<VerifyAuthentication login> <ResourcePage page="adoption-details" /> </VerifyAuthentication> } />
             <Route path='/register-adoption' element={<VerifyAuthentication login> <CreateAdoption /> </VerifyAuthentication> } />
+            <Route path='/edit-adoption/:adoptionId' element={<VerifyAuthentication login> <EditAdoption /> </VerifyAuthentication> } />
 
             {/*  */}
             <Route path='/user-profile' element={<VerifyAuthentication login> <UserProfilePage /> </VerifyAuthentication> } />

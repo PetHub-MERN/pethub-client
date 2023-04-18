@@ -103,9 +103,34 @@ function ResourcePage(props) {
         setIsFormOpen(false);
     }, [page])
 
-    const handleFormOpen = () => {
+    const handleFormOpen = (option) => {
+
         if(isLoggedIn) {
-            setIsFormOpen(true)
+            if(option === "big") {
+
+                setIsFormOpen(true);
+
+            } else {
+
+                switch (page) {
+                    case "adoptions-list":
+                        navigate("/register-adoption");
+                        break;
+                    case "adoption-details":
+                        navigate(`/edit-adoption/${adoptionId}`);
+                        break;
+                    case "pets-list":
+                        navigate("/register-pet");
+                        break;
+                    case "pet-details":
+                        navigate(`/edit-pet/${petId}`);
+                        break;
+                    
+                    default:
+                        console.log("Invalid Option");
+                }
+            }
+
         } else {
             navigate("/login");
         }
@@ -113,29 +138,37 @@ function ResourcePage(props) {
 
     const renderResourceRelatedForm = () => {
         return (
-            <Box sx={{
-                display: isFormOpen ? "block" : "none",
-                flex: 1,
-                maxHeight: {xs: "auto", md: "80vh"},
-                overflow: {xs: "none", md: "auto"},
-            }}>
+            <>
 
-                {/* Render resource related form component */}
+                {isFormOpen &&
 
-                {/* For Adoptions */}
-                {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions} callbackToCloseForm={() => setIsFormOpen(false)}/> }
-                {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                    <Box sx={{
+                        display: {xs: "none", lg: "block"},
+                        flex: 1,
+                        maxHeight: {xs: "auto", md: "80vh"},
+                        overflow: {xs: "none", md: "auto"},
+                    }}>
 
-                {/* For Pets */}
-                {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets} callbackToCloseForm={() => setIsFormOpen(false)}/> }
-                {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
-                
-                <Button
-                    variant="text"
-                    sx={{mb: 3}}
-                    onClick={() => {setIsFormOpen(false)}}
-                >Hide Form</Button>
-            </Box>
+                        {/* Render resource related form component */}
+
+                        {/* For Adoptions */}
+                        {page === "adoptions-list" && <CreateAdoption callbackToUpdate={getAllAdoptions} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                        {page === "adoption-details" && <EditAdoption callbackToUpdate={getAdoptionDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+
+                        {/* For Pets */}
+                        {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                        {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
+                        
+                        <Button
+                            variant="text"
+                            sx={{mb: 3}}
+                            onClick={() => {setIsFormOpen(false)}}
+                        >Hide Form</Button>
+                    </Box>
+                }
+
+            </>
+            
         );
     }
 
@@ -196,21 +229,45 @@ function ResourcePage(props) {
                 </IsOwner>
                 :
                 
-                <Fab 
-                    variant="extended" 
-                    size="medium" 
-                    color="primary"
-                    sx={{
-                        display: isFormOpen ? "none" : "auto",
-                        position: "fixed",
-                        bottom: "12vh",
-                        left: "5vw"
-                    }}
-                    onClick={handleFormOpen}
-                >
-                    <AddIcon sx={{ mr: 1 }} />
-                    Register
-                </Fab>
+                <>
+                    {(!isFormOpen) && 
+                        <>
+
+                            <Fab 
+                                variant="extended" 
+                                size="medium" 
+                                color="primary"
+                                sx={{
+                                    display: {xs: "none", lg: "flex"},
+                                    position: "fixed",
+                                    bottom: "12vh",
+                                    left: "5vw"
+                                }}
+                                onClick={() => handleFormOpen("big")}
+                            >
+                                <AddIcon sx={{ mr: 1 }} />
+                                Register
+                            </Fab>
+                            
+                            <Fab 
+                                variant="extended" 
+                                size="medium" 
+                                color="primary"
+                                sx={{
+                                    display: {xs: "flex", lg: "none"},
+                                    position: "fixed",
+                                    bottom: "12vh",
+                                    left: "5vw"
+                                }}
+                                onClick={() => handleFormOpen("small")}
+                            >
+                                <AddIcon sx={{ mr: 1 }} />
+                                Register
+                            </Fab>
+                        </>
+                    }
+
+                </>
             }
 
         </>

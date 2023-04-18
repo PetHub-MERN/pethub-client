@@ -56,7 +56,7 @@ function AdoptionList(props) {
                                                     m:3
                                             }}>
                                                 <CardMedia 
-                                                    sx={{ height: 140 }}
+                                                    sx={{ height: 200 }}
                                                     image={adoption.imageUrl}
                                                     title={adoption.title}
                                                 />

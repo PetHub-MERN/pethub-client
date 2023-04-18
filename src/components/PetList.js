@@ -37,7 +37,7 @@ function PetList(props) {
         return(
             <>
                 {pets.length === 0 ?
-                    <Typography variant="h3" sx={{mt: 4}}>There are no adoptions registered in the DB...</Typography>
+                    <Typography variant="h3" sx={{mt: 4}}>There are no pets registered in the DB...</Typography>
                     :
                     <>
                         <Select 
@@ -78,9 +78,10 @@ function PetList(props) {
                                                         m: 2,
                                                         flexGrow: 1
                                                     }}>
-                                                    <CardMedia 
-                                                        sx={{ height: 140 }}
+                                                    <CardMedia
                                                         image={pet.imageUrl}
+                                                        component="img"
+                                                        height={200}
                                                         title={pet.name}
                                                     />
                                                     <CardContent>
