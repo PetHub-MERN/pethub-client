@@ -171,8 +171,8 @@ function ResourcePage(props) {
                 color="primary"
                 sx={{
                     display: isFormOpen ? "none" : "auto",
-                    position: "absolute",
-                    bottom: "15vh",
+                    position: "fixed",
+                    bottom: "12vh",
                     left: "5vw"
                 }}
                 onClick={() => setIsFormOpen(true)}

@@ -39,7 +39,7 @@ function LoginForm(props) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                m: 3
+                my: 3
             }}>
                 <Typography variant="h3">LogIn</Typography>
 
