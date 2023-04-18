@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, Card, CardMedia, Container, Paper, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, Card, CardMedia, CircularProgress, Container, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
@@ -217,7 +217,7 @@ function EditAdoption(props) {
                     {renderForm()}
                 </>
                 :
-                <Typography variant="h5"><strong>Loading...</strong></Typography>
+                <CircularProgress />
             }
 
         </>

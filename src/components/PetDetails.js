@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import petServices from "../services/pet.services";
 import { useEffect } from "react";
-import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
 import IsOwner from "./IsOwner";
 
 function PetDetails(props) {
@@ -14,10 +14,6 @@ function PetDetails(props) {
         props.functionToGetResources();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const handleEditClick = () => {
-        navigate(`/pets/edit/${petId}`)
-    };
 
     const handleDeleteClick = () => {
         petServices.deletePet(petId)
@@ -36,10 +32,11 @@ function PetDetails(props) {
                 display: "flex",
                 flexDirection: {xs: "column", md:"row"},
                 justifyContent: "center",
+                alignItems:"center",
                 m: 5
             }}> 
                 
-                <Card sx={{ maxWidth: "50%",
+                <Card sx={{ maxWidth: "60%",
                             flexGrow: 1 }}
                 >
                     <CardHeader 
@@ -54,7 +51,7 @@ function PetDetails(props) {
                         title={pet.name}
                     />
                     <CardContent>
-                        <Typography variant="h3">{pet.name}</Typography>
+                        <Typography sx={{fontSize:"2.2rem", wordBreak: "break-word"}} variant="h4">{pet.name}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Date of Birth:</strong> {pet.dateOfBirth.split('T')[0]}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Species:</strong> {pet.species}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Breed:</strong> {pet.breed}</Typography>
@@ -63,7 +60,6 @@ function PetDetails(props) {
 
                     <IsOwner>
                         <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
-                            <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
                             <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
                         </CardActions>
                     </IsOwner>
@@ -75,7 +71,7 @@ function PetDetails(props) {
 
     return (
         <>
-            <Typography variant="h2" marginTop={4}>🦊 <strong>{pet ? pet.name : "Loading..."}</strong> 🐯</Typography>
+            <Typography sx={{ typography: { sm: 'h4', xs: 'h4', md: "h3" } }} variant="h2" marginTop={4}>🦊 <strong>{pet ? pet.name : <CircularProgress /> }</strong> 🐯</Typography>
 
             {errorMessage &&
                 <Alert align="left" severity="error">
@@ -89,7 +85,7 @@ function PetDetails(props) {
                     {renderPetDetails()}
                 </>
                 :
-                <Typography variant="h3">Loading...</Typography>
+                <CircularProgress />
             }
         </>
     );

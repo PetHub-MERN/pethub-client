@@ -175,21 +175,43 @@ function ResourcePage(props) {
                 </Box>
             </Box>
 
-            <Fab 
-                variant="extended" 
-                size="medium" 
-                color="primary"
-                sx={{
-                    display: isFormOpen ? "none" : "auto",
-                    position: "fixed",
-                    bottom: "12vh",
-                    left: "5vw"
-                }}
-                onClick={handleFormOpen}
-            >
-                <AddIcon sx={{ mr: 1 }} />
-                Create
-            </Fab>
+            
+            {(page === "adoption-details" || page === "pet-details") ? 
+                <IsOwner>
+                    <Fab 
+                        variant="extended" 
+                        size="medium" 
+                        color="primary"
+                        sx={{
+                            display: isFormOpen ? "none" : "auto",
+                            position: "fixed",
+                            bottom: "12vh",
+                            left: "5vw"
+                        }}
+                        onClick={handleFormOpen}
+                    >
+                        <AddIcon sx={{ mr: 1 }} />
+                        Edit
+                    </Fab>
+                </IsOwner>
+                :
+                
+                <Fab 
+                    variant="extended" 
+                    size="medium" 
+                    color="primary"
+                    sx={{
+                        display: isFormOpen ? "none" : "auto",
+                        position: "fixed",
+                        bottom: "12vh",
+                        left: "5vw"
+                    }}
+                    onClick={handleFormOpen}
+                >
+                    <AddIcon sx={{ mr: 1 }} />
+                    Register
+                </Fab>
+            }
 
         </>
     );

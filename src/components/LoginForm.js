@@ -41,7 +41,7 @@ function LoginForm(props) {
                 alignItems: "center",
                 my: 3
             }}>
-                <Typography variant="h3">LogIn</Typography>
+                <Typography variant="h3">Log In</Typography>
 
                 {errorMessage &&
                     <Alert align="left" severity="error">

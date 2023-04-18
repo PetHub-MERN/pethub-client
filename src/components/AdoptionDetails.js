@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
@@ -14,10 +14,6 @@ function AdoptionDetails(props) {
         props.functionToGetResources();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const handleEditClick = () => {
-        navigate(`/adoptions/edit/${adoptionId}`)
-    };
 
     const handleDeleteClick = () => {
         adoptionServices.deleteAdoption(adoptionId)
@@ -36,10 +32,11 @@ function AdoptionDetails(props) {
                 display: "flex",
                 flexDirection: {xs: "column", md:"row"},
                 justifyContent: "center",
+                alignItems:"center",
                 m: 5
             }}> 
                 
-                <Card sx={{ maxWidth: "50%",
+                <Card sx={{ maxWidth: "60%",
                             flexGrow: 1 }}
                 >
                     <CardHeader 
@@ -54,13 +51,13 @@ function AdoptionDetails(props) {
                         title={adoption.title}
                     />
                     <CardContent>
-                        <Typography variant="h3">{adoption.title}</Typography>
+                        <Typography sx={{fontSize:"2.2rem"}} variant="h4">{adoption.title}</Typography>
+                        <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>📍 Location:</strong> {adoption.location}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Description:</strong> {adoption.description}</Typography>
                     </CardContent>
 
                     <IsOwner>
                         <CardActions sx={{display:"flex", justifyContent:"center", marginBottom:"20px"}}>
-                            <Button onClick={() => {handleEditClick()}} size="large" variant="contained">EDIT</Button>
                             <Button onClick={() => {handleDeleteClick()}} size="large" variant="contained" color="error">DELETE</Button>
                         </CardActions>
                     </IsOwner>
@@ -73,7 +70,7 @@ function AdoptionDetails(props) {
 
     return (
         <>
-            <Typography variant="h2" marginTop={4}>🦊 <strong>{adoption ? adoption.title : "Loading..."}</strong> 🐯</Typography>
+            <Typography sx={{ typography: { sm: 'h4', xs: 'h4', md: "h3" } }} variant="h2" marginTop={4}>🦊 <strong>{adoption ? adoption.title : <CircularProgress /> }</strong> 🐯</Typography>
 
             {errorMessage &&
                 <Alert align="left" severity="error">
@@ -87,7 +84,7 @@ function AdoptionDetails(props) {
                     {renderAdoption()}
                 </>
                 :
-                <Typography variant="h3">Loading...</Typography>
+                <CircularProgress />
             }
         </>
     );

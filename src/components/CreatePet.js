@@ -52,7 +52,7 @@ const CreatePet = (props) => {
                 }
             );
         } else {
-            setErrorMessage("Image is Loading!")
+            setErrorMessage("Image is loading...")
         }
     }
 

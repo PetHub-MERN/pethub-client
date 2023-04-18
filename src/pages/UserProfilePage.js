@@ -56,10 +56,10 @@ function UserProfilePage() {
                                 display: "flex", 
                                 justifyContent:"center", 
                                 alignContent: "center",
-                                marginTop: "12%"
+                                marginTop: "9%"
                             }}>
                                 <Paper elevation={3} sx={{maxWidth:"50%", padding:"20px"}}>
-                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "10vw", width:"10vw", height:"10vw", margin: "1em", borderRadius: "50%"}}/>
+                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "100%", width:"50%", height:"auto", margin: "1em", borderRadius: "50%"}}/>
                                     <Typography variant="h4">{userFromDb.name}</Typography>
                                     <Typography variant="h5">{userFromDb.email}</Typography>
                                     <Button variant="contained" sx={{m:2}}>EDIT</Button>
@@ -73,12 +73,12 @@ function UserProfilePage() {
             
             case "adoptions":
                 return (
-                    <AdoptionList functionToGetResources={getAllAdoptions} resource={adoptions} errorMessage={errorMessage}/>
+                    <AdoptionList functionToGetResources={getAllAdoptions} resource={adoptions} errorMessage={errorMessage} isProfilePage/>
                 );
 
             case "pets":
                 return (
-                    <PetList functionToGetResources={getAllPets} resource={pets} errorMessage={errorMessage}/>
+                    <PetList functionToGetResources={getAllPets} resource={pets} errorMessage={errorMessage} isProfilePage/>
                 );
                 
             case "edit":
@@ -96,7 +96,8 @@ function UserProfilePage() {
     const getAllAdoptions = () => {
         adoptionServices.getAllAdoptions()
             .then((response) => {
-                setAdoptions(response.data);
+                const myAdoptions = response.data.filter(adoption => adoption.announcer._id === user._id);
+                setAdoptions(myAdoptions);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
             });
@@ -105,7 +106,8 @@ function UserProfilePage() {
     const getAllPets = () => {
         petServices.getAllPets()
             .then( response => {
-                setPets(response.data);
+                const myPets = response.data.filter(pet => pet.owner._id === user._id);
+                setPets(myPets);
             })
             .catch( err => {
                 console.log(err);

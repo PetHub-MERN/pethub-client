@@ -40,7 +40,7 @@ function SignUpForm() {
                 alignItems: "center",
                 my: 3
             }}>
-                <Typography variant="h3">SignUp</Typography>
+                <Typography variant="h3">Sign Up</Typography>
 
                 {errorMessage &&
                     <Alert align="left" severity="error">

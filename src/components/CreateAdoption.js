@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, Card, CardMedia, Container, Paper, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, Card, CardMedia, CircularProgress, Container, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
@@ -66,7 +66,7 @@ function CreateAdoption(props) {
                     setErrorMessage(err.response.data.message);
                 });
         } else {
-            setErrorMessage("Image is Loading!")
+            setErrorMessage("Image is loading...")
         }
         
     }
@@ -254,7 +254,7 @@ function CreateAdoption(props) {
                     {renderForm()}
                 </>
                 :
-                <Typography variant="h5"><strong>Loading...</strong></Typography>
+                <CircularProgress />
             }
 
         </>
