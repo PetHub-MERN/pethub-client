@@ -37,7 +37,7 @@ function PetList(props) {
         return(
             <>
                 {pets.length === 0 ?
-                    <Typography variant="h2">There are no adoptions registered in the DB...</Typography>
+                    <Typography variant="h3" sx={{mt: 4}}>There are no adoptions registered in the DB...</Typography>
                     :
                     <>
                         <Select 
@@ -65,7 +65,7 @@ function PetList(props) {
                         }}>
 
                             {filteredPets.length === 0 ?
-                                <Typography variant="h4">There are no pets matching your search...</Typography>
+                                <Typography variant="h4" sx={{mt: 4}}>There are no pets matching your search...</Typography>
                                 :
                                 <>
                                     {pets && 

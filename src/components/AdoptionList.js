@@ -26,7 +26,7 @@ function AdoptionList(props) {
         return (
             <>
                 {adoptions.length === 0 ? 
-                    <Typography variant="h2">There are no adoptions registered in the DB...</Typography>
+                    <Typography variant="h3" sx={{mt: 4}}>There are no adoptions registered in the DB...</Typography>
                     :
 
                     <>
@@ -44,7 +44,7 @@ function AdoptionList(props) {
                         }}>
 
                             {filteredAdoptions.length === 0 ? 
-                                <Typography variant="h4">There are no adoptions matching your search...</Typography>
+                                <Typography variant="h4" sx={{mt: 4}}>There are no adoptions matching your search...</Typography>
                                 :
                                 <>
                                     {filteredAdoptions.map(adoption => {
