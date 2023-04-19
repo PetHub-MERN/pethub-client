@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
+import { AppBar, Box, Menu, MenuItem, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import PetsIcon from "@mui/icons-material/Pets";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
 
-    const {isLoggedIn, logOutUser, user} = useContext(AuthContext);
+    const { isLoggedIn, logOutUser } = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -141,6 +141,10 @@ function Navbar() {
                             ADOPTIONS
                         </NavLink>
 
+                        <NavLink exact to={"/chat"} isActive={() => location.pathname === "/chat"} className="nav-link">
+                            CHAT
+                        </NavLink>
+
                         <Button sx={{color: "black", borderColor:"black", mx: 3}} variant="outlined" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
                             LOGOUT
                         </Button>
@@ -184,6 +188,12 @@ function Navbar() {
                             <MenuItem>
                                 <NavLink exact to={"/adoptions"} isActive={() => location.pathname === "/adoptions"} className="nav-link">
                                     ADOPTIONS
+                                </NavLink>
+                            </MenuItem>
+
+                            <MenuItem>
+                                <NavLink exact to={"/chat"} isActive={() => location.pathname === "/chat"} className="nav-link">
+                                    CHAT
                                 </NavLink>
                             </MenuItem>
 

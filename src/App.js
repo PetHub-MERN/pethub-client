@@ -15,6 +15,8 @@ import CreateAdoption from './components/CreateAdoption';
 import EditAdoption from './components/EditAdoption';
 import EditPet from './components/EditPet';
 import socketIO from 'socket.io-client';
+import ChatHome from './pages/ChatHome';
+import ChatPage from './pages/ChatPage';
 
 const socket = socketIO.connect(process.env.REACT_APP_API_URL);
 
@@ -58,6 +60,10 @@ function App() {
             <Route path='/adoptions/:adoptionId' element={<VerifyAuthentication login> <ResourcePage page="adoption-details" /> </VerifyAuthentication> } />
             <Route path='/register-adoption' element={<VerifyAuthentication login> <CreateAdoption isDedicatedPage/> </VerifyAuthentication> } />
             <Route path='/edit-adoption/:adoptionId' element={<VerifyAuthentication login> <EditAdoption isDedicatedPage/> </VerifyAuthentication> } />
+
+            {/* Chat Routes */}
+            <Route path='/chat' element={<VerifyAuthentication login> <ChatHome socket={socket} /> </VerifyAuthentication> } />
+            <Route path='/chat/chat-page' element={<VerifyAuthentication login> <ChatPage socket={socket} /> </VerifyAuthentication> } />
 
             {/*  */}
             <Route path='/user-profile' element={<VerifyAuthentication login> <UserProfilePage /> </VerifyAuthentication> } />
