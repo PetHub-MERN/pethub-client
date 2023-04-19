@@ -1,4 +1,4 @@
-import { Box, Button, Fab } from "@mui/material";
+import { Box, Fab } from "@mui/material";
 import CreateAdoption from "../components/CreateAdoption";
 import CreatePet from "../components/CreatePet"
 import EditAdoption from "../components/EditAdoption";
@@ -159,11 +159,6 @@ function ResourcePage(props) {
                         {page === "pets-list" && <CreatePet callbackToUpdate={getAllPets} callbackToCloseForm={() => setIsFormOpen(false)}/> }
                         {page === "pet-details" && <EditPet callbackToUpdate={getPetDetails} callbackToCloseForm={() => setIsFormOpen(false)}/> }
                         
-                        <Button
-                            variant="text"
-                            sx={{mb: 3}}
-                            onClick={() => {setIsFormOpen(false)}}
-                        >Hide Form</Button>
                     </Box>
                 }
 
@@ -210,23 +205,49 @@ function ResourcePage(props) {
 
             
             {(page === "adoption-details" || page === "pet-details") ? 
-                <IsOwner>
-                    <Fab 
-                        variant="extended" 
-                        size="medium" 
-                        color="primary"
-                        sx={{
-                            display: isFormOpen ? "none" : "auto",
-                            position: "fixed",
-                            bottom: "12vh",
-                            left: "5vw"
-                        }}
-                        onClick={handleFormOpen}
-                    >
-                        <AddIcon sx={{ mr: 1 }} />
-                        Edit
-                    </Fab>
-                </IsOwner>
+                
+                <>
+                    {(!isFormOpen) && 
+                        <>
+                            <IsOwner>
+                                <Fab 
+                                    variant="extended" 
+                                    size="medium" 
+                                    color="primary"
+                                    sx={{
+                                        display: {xs: "none", lg: "flex"},
+                                        position: "fixed",
+                                        bottom: "12vh",
+                                        left: "5vw"
+                                    }}
+                                    onClick={() => {handleFormOpen("big")}}
+                                >
+                                    <AddIcon sx={{ mr: 1 }} />
+                                    Edit
+                                </Fab>
+                            </IsOwner>
+                            
+                            <IsOwner>
+                                <Fab 
+                                    variant="extended" 
+                                    size="medium" 
+                                    color="primary"
+                                    sx={{
+                                        display: {xs: "flex", lg: "none"},
+                                        position: "fixed",
+                                        bottom: "12vh",
+                                        left: "5vw"
+                                    }}
+                                    onClick={() => handleFormOpen("small")}
+                                >
+                                    <AddIcon sx={{ mr: 1 }} />
+                                    Edit
+                                </Fab>
+                            </IsOwner>
+                        </>
+                    }
+                </>
+
                 :
                 
                 <>

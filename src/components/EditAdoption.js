@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Button, Card, CardMedia, CircularProgress, Container, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
@@ -17,6 +17,10 @@ function EditAdoption(props) {
     const [selectedPets, setSelectedPets] = useState([]);
     const [description, setDescription] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -59,8 +63,10 @@ function EditAdoption(props) {
             .then((response) => {
                 setErrorMessage(null);
 
-                if(props.callbackToUpdate){
-                    props.callbackToUpdate();
+                if(callbackToUpdate && !isDedicatedPage){
+                    callbackToUpdate();
+                } else {
+                    navigate(`/adoptions/${adoptionId}`)
                 }
 
             }).catch((err) => {
@@ -182,7 +188,7 @@ function EditAdoption(props) {
                     
                     <CardMedia 
                         sx={{ height: 140 }}
-                        image="https://via.placeholder.com/600x400?text=PET+IMAGE"
+                        image={pet.imageUrl}
                         title={pet.name}
                     />
                     <Typography variant="h6">{pet.name}</Typography>
@@ -218,6 +224,20 @@ function EditAdoption(props) {
                 </>
                 :
                 <CircularProgress />
+            }
+
+            {isDedicatedPage ?
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={() => {navigate(-1)}}
+                >RETURN</Button>
+                :
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={callbackToCloseForm}
+                >Hide Form</Button>            
             }
 
         </>

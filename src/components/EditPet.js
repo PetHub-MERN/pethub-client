@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditPet = (props) => {
 
@@ -11,6 +11,10 @@ const EditPet = (props) => {
     const [breed, setBreed] = useState('');
     const [description, setDescription] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
+
+    const navigate = useNavigate();
 
     const {petId} = useParams();
 
@@ -49,7 +53,11 @@ const EditPet = (props) => {
             .then( response => {
                 setErrorMessage(null);
 
-                props.callbackToUpdate();
+                if(isDedicatedPage) {
+                    navigate(`/pets/${petId}`);
+                } else {
+                    callbackToUpdate();
+                }
             })
             .catch( err => {
                 setErrorMessage(err.response.data.message);
@@ -116,6 +124,20 @@ const EditPet = (props) => {
             }
 
             {renderForm()}
+
+            {isDedicatedPage ?
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={() => {navigate(-1)}}
+                >RETURN</Button>
+                :
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={callbackToCloseForm}
+                >Hide Form</Button>            
+            }
 
         </>
     )

@@ -49,15 +49,15 @@ function App() {
             {/* Pet Routes */}
             <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />
             <Route path='/pets/:petId' element={<VerifyAuthentication login> <ResourcePage page="pet-details" /> </VerifyAuthentication> } />
-            <Route path='/register-pet' element={<VerifyAuthentication login> <CreatePet /> </VerifyAuthentication> } />
-            <Route path='/edit-pet/:petId' element={<VerifyAuthentication login> <EditPet /> </VerifyAuthentication> } />
+            <Route path='/register-pet' element={<VerifyAuthentication login> <CreatePet isDedicatedPage/> </VerifyAuthentication> } />
+            <Route path='/edit-pet/:petId' element={<VerifyAuthentication login> <EditPet isDedicatedPage/> </VerifyAuthentication> } />
 
             
             {/* Adoption Routes */}
             <Route path='/adoptions' element={ <ResourcePage page="adoptions-list" /> } />
             <Route path='/adoptions/:adoptionId' element={<VerifyAuthentication login> <ResourcePage page="adoption-details" /> </VerifyAuthentication> } />
-            <Route path='/register-adoption' element={<VerifyAuthentication login> <CreateAdoption /> </VerifyAuthentication> } />
-            <Route path='/edit-adoption/:adoptionId' element={<VerifyAuthentication login> <EditAdoption /> </VerifyAuthentication> } />
+            <Route path='/register-adoption' element={<VerifyAuthentication login> <CreateAdoption isDedicatedPage/> </VerifyAuthentication> } />
+            <Route path='/edit-adoption/:adoptionId' element={<VerifyAuthentication login> <EditAdoption isDedicatedPage/> </VerifyAuthentication> } />
 
             {/*  */}
             <Route path='/user-profile' element={<VerifyAuthentication login> <UserProfilePage /> </VerifyAuthentication> } />

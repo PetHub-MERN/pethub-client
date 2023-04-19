@@ -4,6 +4,7 @@ import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 import imageServices from "../services/image.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { useNavigate } from "react-router";
 
 const CreatePet = (props) => {
 
@@ -17,7 +18,11 @@ const CreatePet = (props) => {
     const [imageUrl, setImageUrl] = useState(null);
     const [isUrlReady, setIsUrlReady] = useState(true);
 
-    const { user } = useContext(AuthContext); 
+    const { user } = useContext(AuthContext);
+
+    const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
+
+    const navigate = useNavigate();
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,7 +50,11 @@ const CreatePet = (props) => {
                     setImageUrl(null)
                     setErrorMessage(null);
 
-                    props.callbackToUpdate();
+                    if(isDedicatedPage) {
+                        navigate("/pets");
+                    } else {
+                        callbackToUpdate();
+                    }
                 })
                 .catch( err => {
                     setErrorMessage(err.response.data.message);
@@ -136,6 +145,20 @@ const CreatePet = (props) => {
             }
 
             {renderForm()}
+
+            {isDedicatedPage ?
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={() => {navigate(-1)}}
+                >RETURN</Button>
+                :
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={callbackToCloseForm}
+                >Hide Form</Button>            
+            }
             
         </>
     )

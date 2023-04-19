@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Button, Card, CardMedia, CircularProgress, Container, Paper, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
@@ -13,6 +13,8 @@ function CreateAdoption(props) {
     const [ownedPets, setOwnedPets] = useState(null);
     const {user} = useContext(AuthContext);
 
+    const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
+
     const [title, setTitle] = useState("");
     const [location, setLocation] = useState("");
     const [selectedPets, setSelectedPets] = useState([]);
@@ -22,6 +24,8 @@ function CreateAdoption(props) {
     const [isUrlReady, setIsUrlReady] = useState(true);
 
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -58,8 +62,10 @@ function CreateAdoption(props) {
                     setLocation("");
                     setImageUrl(null);
     
-                    if(props.callbackToUpdate){
-                        props.callbackToUpdate();
+                    if(callbackToUpdate && !isDedicatedPage){
+                        callbackToUpdate();
+                    } else {
+                        navigate("/adoptions");
                     }
     
                 }).catch((err) => {
@@ -114,8 +120,8 @@ function CreateAdoption(props) {
             );
         } else {
 
-            return (
-                
+            return (                
+
                 <form onSubmit={handleSubmit}>
                     <Container sx={{
                         display: "flex",
@@ -202,6 +208,7 @@ function CreateAdoption(props) {
                     </Container>             
     
                 </form>
+                
             );
         }
 
@@ -255,6 +262,20 @@ function CreateAdoption(props) {
                 </>
                 :
                 <CircularProgress />
+            }
+
+            {isDedicatedPage ?
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={() => {navigate(-1)}}
+                >RETURN</Button>
+                :
+                <Button
+                    variant="text"
+                    sx={{mb: 3}}
+                    onClick={callbackToCloseForm}
+                >Hide Form</Button>            
             }
 
         </>
