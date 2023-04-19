@@ -14,6 +14,9 @@ import CreatePet from './components/CreatePet';
 import CreateAdoption from './components/CreateAdoption';
 import EditAdoption from './components/EditAdoption';
 import EditPet from './components/EditPet';
+import socketIO from 'socket.io-client';
+
+const socket = socketIO.connect(process.env.REACT_APP_API_URL);
 
 function App() {
 
