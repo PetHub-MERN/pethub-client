@@ -8,7 +8,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 const EditProfile = (props) => {
 
     const [imageUrl, setImageUrl] = useState(null);
-    const [isUrlReady, setIsUrlReady] = useState(false);
+    const [isUrlReady, setIsUrlReady] = useState(true);
 
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -35,10 +35,11 @@ const EditProfile = (props) => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        if(isUrlReady) {
+        if(isUrlReady && imageUrl === null) {
+            setErrorMessage("You have to select a picture!");
+        } else if(isUrlReady) {
             userServices.editUser(user._id, { imageUrl })
                 .then((response) => {
-                    console.log(imageUrl);
                     props.callbackToUpdateUser();
                 })
                 .catch((err) => {

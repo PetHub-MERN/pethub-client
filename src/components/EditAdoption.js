@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import imageServices from "../services/image.services";
 
 function EditAdoption(props) {
 
@@ -17,6 +19,9 @@ function EditAdoption(props) {
     const [selectedPets, setSelectedPets] = useState([]);
     const [description, setDescription] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const [imageUrl, setImageUrl] = useState(null);
+    const [isUrlReady, setIsUrlReady] = useState(true);
 
     const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
 
@@ -56,23 +61,45 @@ function EditAdoption(props) {
             title,
             location,
             description,
-            pets: selectedPets
+            pets: selectedPets,
+            imageUrl
         }
 
-        adoptionServices.editAdoption(adoptionId, updatedAdoptionData)
-            .then((response) => {
-                setErrorMessage(null);
-
-                if(callbackToUpdate && !isDedicatedPage){
-                    callbackToUpdate();
-                } else {
-                    navigate(`/adoptions/${adoptionId}`)
-                }
-
-            }).catch((err) => {
-                setErrorMessage(err.response.data.message);
-            });
+        if(isUrlReady) {
+                adoptionServices.editAdoption(adoptionId, updatedAdoptionData)
+                    .then((response) => {
+                        setErrorMessage(null);
         
+                        if(callbackToUpdate && !isDedicatedPage){
+                            callbackToUpdate();
+                        } else {
+                            navigate(`/adoptions/${adoptionId}`)
+                        }
+        
+                    }).catch((err) => {
+                        setErrorMessage(err.response.data.message);
+                    });
+        } else {
+            setErrorMessage("The image is loading. Please wait and try again!");
+        }        
+    }
+
+    const handleFileUpload = (e) => {
+
+        setIsUrlReady(false);
+
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", e.target.files[0]);
+
+        imageServices.uploadImage(uploadData)
+            .then( response => {
+                setImageUrl(response.data.fileUrl);
+                setIsUrlReady(true);
+            })
+            .catch(err => {
+                setErrorMessage(err.response.data.message);
+            }
+        );
     }
 
     const handlePetSelection = (petId) => {
@@ -161,6 +188,11 @@ function EditAdoption(props) {
                             })}</Typography>
                         }
                     </Paper>
+
+                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                        Edit Photo
+                        <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
+                    </Button>
 
                     <Button 
                         size="large" 

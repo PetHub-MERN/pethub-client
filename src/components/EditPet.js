@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import petServices from "../services/pet.services";
 import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import imageServices from "../services/image.services";
 
 const EditPet = (props) => {
 
@@ -11,6 +13,9 @@ const EditPet = (props) => {
     const [breed, setBreed] = useState('');
     const [description, setDescription] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const [imageUrl, setImageUrl] = useState(null);
+    const [isUrlReady, setIsUrlReady] = useState(true);
 
     const {isDedicatedPage, callbackToUpdate, callbackToCloseForm} = props;
 
@@ -43,28 +48,49 @@ const EditPet = (props) => {
         const updatedPet = {
             name,
             dateOfBirth,
-            species,
-            breed,
             description,
-        };
+            breed,
+            species,
+            imageUrl
+        }
 
+        if (isUrlReady) {
 
-        petServices.editPet(petId, updatedPet)
-            .then( response => {
-                setErrorMessage(null);
+            petServices.editPet(petId, updatedPet)
+                .then(response => {
+                    setErrorMessage(null);
 
-                if(isDedicatedPage) {
-                    navigate(`/pets/${petId}`);
-                } else {
-                    callbackToUpdate();
+                    if (isDedicatedPage) {
+                        navigate(`/pets/${petId}`);
+                    } else {
+                        callbackToUpdate();
+                    }
+                })
+                .catch(err => {
+                    setErrorMessage(err.response.data.message);
                 }
+            );
+        } else {
+            setErrorMessage("The image is loading. Please wait and try again!");
+        }
+    }
+
+    const handleFileUpload = (e) => {
+
+        setIsUrlReady(false);
+
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", e.target.files[0]);
+
+        imageServices.uploadImage(uploadData)
+            .then( response => {
+                setImageUrl(response.data.fileUrl);
+                setIsUrlReady(true);
             })
-            .catch( err => {
+            .catch(err => {
                 setErrorMessage(err.response.data.message);
             }
         );
-        
-
     }
 
     const renderForm = () => {
@@ -79,15 +105,13 @@ const EditPet = (props) => {
                     <TextField required fullWidth variant="outlined" type="text" label="Name" value={name} onChange={(e) => {setName(e.target.value)}} sx={{
                         mt: 3
                     }}/>
-                    <TextField required fullWidth variant="outlined"  type="date" helperText="Date of Birth" value={dateOfBirth} onChange={(e) => {setDateOfBirth(e.target.value)}} sx={{
-                        mt: 3
-                    }}/>
+                    
                     <Select 
                         align="left"
                         fullWidth
                         value={species}
                         onChange={(e) => {setSpecies(e.target.value)}}
-                        sx={{mt: 1}}
+                        sx={{mt: 3}}
                     >
                         <MenuItem value="Dog">Dog</MenuItem>
                         <MenuItem value="Cat">Cat</MenuItem>
@@ -104,7 +128,12 @@ const EditPet = (props) => {
                         mb: 5
                     }}/>
 
-                    <Button sx={{mb: 3}} onClick={handleSubmit} variant="outlined">EDIT PET!</Button>
+                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                        Edit Photo
+                        <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
+                    </Button>
+
+                    <Button sx={{m: 3}} onClick={handleSubmit} variant="outlined">EDIT PET!</Button>
                 </Container>
             </form>
         );
