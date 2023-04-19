@@ -66,7 +66,7 @@ const ChatBody = ({ messages, lastMessageRef, typingStatus }) => {
                         <Container sx={{
                             display: 'flex', 
                             justifyContent: 'flex-start', 
-                            minWidth: '80vw',
+                            width: '90%',
                             m: 3
                         }}
                         key={message.id}
