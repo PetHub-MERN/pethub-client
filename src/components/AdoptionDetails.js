@@ -1,5 +1,5 @@
-import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { Alert, AlertTitle, Avatar, Backdrop, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Container, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import adoptionServices from "../services/adoption.services";
 import IsOwner from "./IsOwner";
@@ -7,6 +7,8 @@ import IsOwner from "./IsOwner";
 function AdoptionDetails(props) {
 
     const {resource: adoption, resourceId: adoptionId, errorMessage} = props;
+
+    const [open, setOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -25,6 +27,48 @@ function AdoptionDetails(props) {
             })
     }
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const handlePetClick = (petId) => {
+        navigate(`/pets/${petId}`);
+    }
+
+    const renderPets = () => {
+        
+        return adoption.pets.map((pet) => {
+            return(
+                <Card key={pet._id} sx={{
+                    width: 150,
+                    minHeight: 200,
+                    m: 3
+                }}>
+                    
+                    <CardMedia 
+                        sx={{ height: 140 }}
+                        image={pet.imageUrl}
+                        title={pet.name}
+                    />
+                    <Typography variant="h6">{pet.name}</Typography>
+                    <Button
+                        variant="text"
+                        onClick={() => handlePetClick(pet._id)}
+                        sx={{
+                            m: 1
+                        }}
+                    >See Details</Button>
+
+                </Card>
+            );
+        })
+        
+    }
+
     const renderAdoption = () => {
         return(
             <Box 
@@ -36,9 +80,10 @@ function AdoptionDetails(props) {
                 m: 5
             }}> 
                 
-                <Card sx={{ maxWidth: "60%",
-                            flexGrow: 1 }}
-                >
+                <Card sx={{ 
+                    maxWidth: {xs: "100%", sm: "80%", md: "70%", lg: "60%", xl: "50%"},
+                    flexGrow: 1
+                }}>
                     <CardHeader 
                         align="left"
                         avatar={<Avatar src={adoption.announcer.imageUrl}></Avatar>}
@@ -46,14 +91,40 @@ function AdoptionDetails(props) {
                         subheader="Announcer"
                     />
                     <CardMedia 
-                        sx={{ height:"300px" }}
+                        sx={{ height:"300px", "&:hover": {cursor: "pointer"} }}
                         image={adoption.imageUrl}
                         title={adoption.title}
+                        onClick={handleOpen}
                     />
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={open}
+                        onClick={handleClose}
+                    >
+                        <img src={adoption.imageUrl} alt={adoption.title} style={{maxHeight: '70vh', maxWidth: '70vw'}} />
+                    </Backdrop>
                     <CardContent>
                         <Typography sx={{fontSize:"2.2rem"}} variant="h4">{adoption.title}</Typography>
+                        <Typography sx={{fontSize:"1.5rem"}} variant="body1">
+                            {adoption.pets.length > 1 ? 'The pets in this adoption bundle are:' : 'The pet in this adoption bundle is:'}
+                        </Typography>
+
+                        <Container sx={{
+                            height: "30vh",
+                            width: "inherit",
+                            overflow: "auto",
+                            display: "flex",
+                            justifyContent: "center",
+                            flexWrap: "wrap"
+                        }}>
+    
+                            {renderPets()}
+                            
+                        </Container>
+                        
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>📍 Location:</strong> {adoption.location}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Description:</strong> {adoption.description}</Typography>
+                        <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Contact:</strong> {adoption.announcer.email}</Typography>
                     </CardContent>
 
                     <IsOwner>
@@ -70,8 +141,6 @@ function AdoptionDetails(props) {
 
     return (
         <>
-            <Typography sx={{ typography: { sm: 'h4', xs: 'h4', md: "h3" } }} variant="h2" marginTop={4}>🦊 <strong>{adoption ? adoption.title : <CircularProgress /> }</strong> 🐯</Typography>
-
             {errorMessage &&
                 <Alert align="left" severity="error">
                     <AlertTitle>Error</AlertTitle>

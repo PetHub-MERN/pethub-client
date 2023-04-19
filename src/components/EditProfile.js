@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import userServices from "../services/user.services";
-import { Alert, AlertTitle, Button, Container, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, CircularProgress, Container, Paper, Typography } from "@mui/material";
 import { AuthContext } from "../context/auth.context";
 import imageServices from "../services/image.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
@@ -66,17 +66,21 @@ const EditProfile = (props) => {
                         <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                     </Button>
 
-                    <Button sx={{mb: 3, mt: 3}} onClick={handleFormSubmit} variant="outlined">EDIT PROFILE!</Button>
+                    <Button sx={{mb: 3, mt: 3}} onClick={handleFormSubmit} variant="outlined">CONFIRM CHANGES!</Button>
                 </Container>
             </form>
         ); 
     }
 
     return(
-        <>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+        }}>
             <Typography variant="h3" sx={{
                 m: 4
-            }}>Edit <strong>Profile</strong></Typography>
+            }}>Edit <strong>Picture</strong></Typography>
 
             {errorMessage &&
                 <Alert align="left" severity="error">
@@ -85,9 +89,36 @@ const EditProfile = (props) => {
                 </Alert>
             }
 
+            <Paper 
+                sx={{ 
+                    width: {xs: '200px', xl: '400px'}, 
+                    height: {xs: '200px', xl: '400px'}, 
+                    backgroundImage: imageUrl ? `url(${imageUrl})` : "none ", 
+                    backgroundSize: "cover",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    m: 3
+
+                }}
+            >
+
+                {(!imageUrl && isUrlReady) &&
+                    <Typography variant="h5">Pick a Photo!</Typography>
+                }
+
+                {(!imageUrl && !isUrlReady) &&
+                    <CircularProgress />
+                }
+
+
+            </Paper>
+
+
             {renderForm()}
 
-        </>
+        </Box>
     )
 };
 

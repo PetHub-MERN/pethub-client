@@ -56,13 +56,13 @@ function UserProfilePage() {
                                 display: "flex", 
                                 justifyContent:"center", 
                                 alignContent: "center",
-                                marginTop: "9%"
+                                marginTop: "5%"
                             }}>
                                 <Paper elevation={3} sx={{maxWidth:"50%", padding:"20px"}}>
-                                    <img src={userFromDb.imageUrl} alt={userFromDb.name} style={{maxWidth: "100%", width:"50%", height:"auto", margin: "1em", borderRadius: "50%"}}/>
+                                    <Box sx={{ width: {xs: '200px', xl: '400px'}, height: {xs: '200px', xl: '400px'}, backgroundImage: `url(${userFromDb.imageUrl})`, backgroundSize: 'cover', borderRadius: '50%' }}/>
                                     <Typography variant="h4">{userFromDb.name}</Typography>
                                     <Typography variant="h5">{userFromDb.email}</Typography>
-                                    <Button variant="contained" sx={{m:2}}>EDIT</Button>
+                                    <Button variant="contained" sx={{m:2}} onClick={() => {setContentOption("edit")}}>EDIT PIC</Button>
                                 </Paper>
                             </Box>
                             :
@@ -239,7 +239,7 @@ function UserProfilePage() {
                             }}
                             onClick={() => {handleSelection("edit")}}
                         >
-                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Edit <strong>Profile</strong>!</Typography>
+                            <Typography sx={{backgroundColor:"rgba(51, 51, 51, 0.7)", color:"white", borderRadius:"10px", padding: "5px", marginBottom: {xs: "0", xl: "5px"}, fontSize: {xs: "3vw", md:"2em"}}} variant="h4">Edit <strong>Photo</strong>!</Typography>
                         </Box>
                     </Box>                    
                 </Box>

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import petServices from "../services/pet.services";
-import { useEffect } from "react";
-import { Alert, AlertTitle, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Alert, AlertTitle, Avatar, Backdrop, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
 import IsOwner from "./IsOwner";
 
 function PetDetails(props) {
+
+    const [open, setOpen] = useState(false);
 
     const {resource: pet, resourceId: petId, errorMessage} = props;
 
@@ -25,6 +27,14 @@ function PetDetails(props) {
             })
     }
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
     const renderPetDetails = () => {
         return (
             <Box 
@@ -36,7 +46,7 @@ function PetDetails(props) {
                 m: 5
             }}> 
                 
-                <Card sx={{ maxWidth: "60%",
+                <Card sx={{ maxWidth: {xs: "100%", sm: "80%", md: "70%", lg: "60%", xl: "50%"},
                             flexGrow: 1 }}
                 >
                     <CardHeader 
@@ -46,10 +56,18 @@ function PetDetails(props) {
                         subheader="Owner"
                     />
                     <CardMedia 
-                        sx={{ height:"300px" }}
+                        sx={{ height:"300px", "&:hover": {cursor: "pointer"} }}
                         image={pet.imageUrl}
                         title={pet.name}
+                        onClick={handleOpen}
                     />
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={open}
+                        onClick={handleClose}
+                    >
+                        <img src={pet.imageUrl} alt={pet.name} style={{maxHeight: '70vh', maxWidth: '70vw'}} />
+                    </Backdrop>
                     <CardContent>
                         <Typography sx={{fontSize:"2.2rem", wordBreak: "break-word"}} variant="h4">{pet.name}</Typography>
                         <Typography sx={{fontWeight:"normal"}} variant="h6"><strong>Date of Birth:</strong> {pet.dateOfBirth.split('T')[0]}</Typography>

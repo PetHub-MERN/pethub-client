@@ -43,6 +43,11 @@ function CreateAdoption(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if(selectedPets.length === 0) {
+            setErrorMessage("Pick at least 1 pet!");
+            return;
+        }
+
         if(isUrlReady) {
 
             const newAdoptionData = {
