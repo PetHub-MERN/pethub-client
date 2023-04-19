@@ -52,11 +52,11 @@ function AdoptionList(props) {
                                             <Card
                                                 key={adoption._id}
                                                 sx={{
-                                                    width: 300,
+                                                    width: {xs: 250, md: 300},
                                                     m:3
                                             }}>
                                                 <CardMedia 
-                                                    sx={{ height: 200 }}
+                                                    sx={{ height: 200}}
                                                     image={adoption.imageUrl}
                                                     title={adoption.title}
                                                 />

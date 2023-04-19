@@ -58,10 +58,9 @@ function PetList(props) {
 
                         <Box sx={{
                             display: "flex",
-                            flexDirection: {xs: "column", md:"row"},
-                            justifyContent: "center",
                             flexWrap: "wrap",
-                            m: 5
+                            justifyContent: "center",
+                            m: 4
                         }}>
 
                             {filteredPets.length === 0 ?
@@ -73,15 +72,13 @@ function PetList(props) {
                                             return(
                                                 <Card
                                                     key={pet._id}
-                                                    sx={{ 
-                                                        maxWidth: {sm: "100%", md: 345},
-                                                        m: 2,
-                                                        flexGrow: 1
-                                                    }}>
-                                                    <CardMedia
+                                                    sx={{
+                                                        width: {xs: 250, md: 300},
+                                                        m:3
+                                                }}>
+                                                    <CardMedia 
+                                                        sx={{ height: 200}}
                                                         image={pet.imageUrl}
-                                                        component="img"
-                                                        height={200}
                                                         title={pet.name}
                                                     />
                                                     <CardContent>
