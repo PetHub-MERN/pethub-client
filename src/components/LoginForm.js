@@ -11,10 +11,13 @@ function LoginForm(props) {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
 
+    const {isDedicatedPage, setWelcomeContent} = props;
+
     const navigate = useNavigate();
     const { storeToken, authenticateUser } = useContext(AuthContext); 
 
     const handleLoginSubmit = (e) => {
+
         e.preventDefault();
         
         const loginData = {
@@ -26,7 +29,11 @@ function LoginForm(props) {
             .then((response) => {
                 storeToken(response.data.authToken);
                 authenticateUser();
-                navigate("/");
+                if(isDedicatedPage) {
+                    navigate("/");
+                } else {
+                    setWelcomeContent("welcome");
+                }
             })
             .catch((err) => {
                 setErrorMessage(err.response.data.message);
@@ -68,6 +75,12 @@ function LoginForm(props) {
                 </form>
 
             </Container>
+
+            {isDedicatedPage ?
+                <Typography>Don't have an Account? <Button variant="text" onClick={() => {navigate("/signup")}}>SignUp</Button></Typography>
+                :
+                <Typography>Don't have an Account? <Button variant="text" onClick={() => {setWelcomeContent("signup")}}>SignUp</Button></Typography>
+            }
             
         </>
     );

@@ -43,8 +43,8 @@ function App() {
             <Route path='/' element={<HomePage />}/>
             
             {/* Authentication Routes */}
-            <Route path='/signup' element={<VerifyAuthentication logout> <SignUpForm /> </VerifyAuthentication>}/>
-            <Route path='/login' element={<VerifyAuthentication logout> <LoginForm /> </VerifyAuthentication>}/>
+            <Route path='/signup' element={<VerifyAuthentication logout> <SignUpForm isDedicatedPage/> </VerifyAuthentication>}/>
+            <Route path='/login' element={<VerifyAuthentication logout> <LoginForm isDedicatedPage/> </VerifyAuthentication>}/>
 
             {/* Pet Routes */}
             <Route path='/pets' element={ <ResourcePage page="pets-list" /> } />

@@ -3,12 +3,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.services";
 
-function SignUpForm() {
+function SignUpForm(props) {
 
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const {isDedicatedPage ,setWelcomeContent} = props;
 
     const navigate = useNavigate();
 
@@ -26,8 +28,15 @@ function SignUpForm() {
                 setEmail("");
                 setName("");
                 setPassword("");
-                navigate("/login");
-            }).catch((err) => {
+
+                if(isDedicatedPage) {
+                    navigate("/login");
+                } else {
+                    setWelcomeContent("login");
+                }
+
+            })
+            .catch((err) => {
                 setErrorMessage(err.response.data.message);
             });
     }
@@ -69,6 +78,12 @@ function SignUpForm() {
                 </form>
 
             </Container>
+
+            {isDedicatedPage ? 
+                 <Typography>Already have an Account? <Button variant="text" onClick={() => {navigate("/login")}}>LogIn</Button></Typography>
+                 :
+                 <Typography>Already have an Account? <Button variant="text" onClick={() => {setWelcomeContent("login")}}>LogIn</Button></Typography>
+            }
             
         </>
     );

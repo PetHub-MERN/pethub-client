@@ -74,16 +74,14 @@ function HomePage() {
             case "login":
                 return (
                     <>
-                        <LoginForm />
-                        <Typography>Don't have an Account? <Button variant="text" onClick={() => {setWelcomeContent("signup")}}>SignUp</Button></Typography>
+                        <LoginForm setWelcomeContent={setWelcomeContent}/>
                     </>
                 );
 
             case "signup":
                 return (
                     <>
-                        <SignUpForm />
-                        <Typography>Already have an Account? <Button variant="text" onClick={() => {setWelcomeContent("login")}}>LogIn</Button></Typography>
+                        <SignUpForm setWelcomeContent={setWelcomeContent}/>
                     </>
                 );
             
