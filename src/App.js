@@ -23,7 +23,7 @@ const socket = socketIO.connect(process.env.REACT_APP_API_URL);
 
 function App() {
   
-  const [toggleDark, setToggleDark] = useState(false);
+  const [toggleDark, setToggleDark] = useState(true);
 
   const theme = createTheme({
     palette: {
