@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, CircularProgress, Typography, MenuItem, FormHelperText, Select } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, CircularProgress, Typography, MenuItem, TextField } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,19 +10,34 @@ function PetList(props) {
     const navigate = useNavigate();
 
     const [speciesFilter, setSpeciesFilter] = useState("All");
+    const [order, setOrder] = useState("newest");
+
+    const sortPets = (pet, nextPet) => {
+        if(pet.createdAt > nextPet.createdAt) {
+            return order === "newest" ? -1 : 1;
+        } else {
+            return order === "newest" ? 1 : -1;
+        }        
+    }
 
     const filteredPets = useMemo(() => {
 
-        if(speciesFilter === "All") {
-            return pets;
-        } else {
-            
-            return pets.filter((pet) => {
-                return pet.species === speciesFilter;
-              });
-
+        if(pets) {
+            if(speciesFilter === "All") {
+                console.log(pets);
+                return pets.sort(sortPets);
+            } else {
+                
+                const filteredArr = pets.filter((pet) => {
+                    return pet.species === speciesFilter;
+                  });
+                
+                return filteredArr.sort(sortPets);
+    
+            }
         }
-    }, [pets, speciesFilter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pets, speciesFilter, order]);
 
     const handleClickDetails = (petId) => {
         navigate(`/pets/${petId}`);
@@ -40,21 +55,52 @@ function PetList(props) {
                     <Typography variant="h3" sx={{mt: 4}}>There are no pets registered in the DB...</Typography>
                     :
                     <>
-                        <Select 
-                            align="left"
-                            value={speciesFilter}
-                            onChange={(e) => {setSpeciesFilter(e.target.value)}}
-                            sx={{m: 4, mb:0, width:"60%"}}
-                        >
-                            <MenuItem value="Dog">Dog</MenuItem>
-                            <MenuItem value="Cat">Cat</MenuItem>
-                            <MenuItem value="Bird">Bird</MenuItem>
-                            <MenuItem value="Reptile">Reptile</MenuItem>
-                            <MenuItem value="Fish">Fish</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
-                            <MenuItem value="All">All</MenuItem>
-                        </Select>
-                        <FormHelperText sx={{textAlign:"center"}}>Filter by Species</FormHelperText>
+                        <Box sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: {xs: "100%", md: "60%", lg: "40%"},
+                            my: 3,
+                            mx: "auto"
+                        }}>
+                            <TextField
+                                align="left"
+                                value={speciesFilter}
+                                onChange={(e) => {setSpeciesFilter(e.target.value)}}
+                                sx={{
+                                    flex: 1,
+                                    mx: 1
+                                }}
+                                select
+                                label="Species"
+                            >
+                                <MenuItem value="Dog">Dog</MenuItem>
+                                <MenuItem value="Cat">Cat</MenuItem>
+                                <MenuItem value="Bird">Bird</MenuItem>
+                                <MenuItem value="Reptile">Reptile</MenuItem>
+                                <MenuItem value="Fish">Fish</MenuItem>
+                                <MenuItem value="Other">Other</MenuItem>
+                                <MenuItem value="All">All</MenuItem>
+                            </TextField>
+         
+                            
+                            <TextField
+                                align="left"
+                                value={order}
+                                onChange={(e) => {setOrder(e.target.value)}}
+                                select
+                                label="Sort by"
+                                sx={{
+                                    flex: 1,
+                                    mx: 1
+                                }}
+                            >
+                                <MenuItem value="oldest">Oldest</MenuItem>
+                                <MenuItem value="newest">Newest</MenuItem>                                
+                            </TextField>
+                                                          
+                        </Box>
+
 
                         <Box sx={{
                             display: "flex",

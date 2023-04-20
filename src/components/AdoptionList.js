@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Box, Button, Card, CardMedia, CircularProgress, Typography, TextField } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Card, CardMedia, CircularProgress, Typography, TextField, MenuItem } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,14 +8,26 @@ function AdoptionList(props) {
     const {resource: adoptions, errorMessage} = props;
 
     const [searchLocation, setSearchLocation] = useState("");
+    const [order, setOrder] = useState("newest");
+
+    const sortAdoptions = (adoption, nextAdoption) => {
+        if(adoption.createdAt > nextAdoption.createdAt) {
+            return order === "newest" ? -1 : 1;
+        } else {
+            return order === "newest" ? 1 : -1;
+        }        
+    }
 
     const filteredAdoptions = useMemo(() => {
         if(adoptions) {
-            return adoptions.filter((adoption) => {
+            const filteredArr = adoptions.filter((adoption) => {
                 return adoption.location.toLowerCase().includes(searchLocation.toLowerCase());
               })
+
+            return filteredArr.sort(sortAdoptions)
         }
-    }, [searchLocation, adoptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchLocation, adoptions, order]);
     
     useEffect(() => {
         props.functionToGetResources();
@@ -31,9 +43,36 @@ function AdoptionList(props) {
 
                     <>
                         {!props.isProfilePage &&
-                            <TextField variant="outlined" type="text" label="Search by location:" value={searchLocation} onChange={(e) => {setSearchLocation(e.target.value)}} sx={{
-                                m: 4, mb:0, width:"60%"
-                            }}/>
+                            <Box sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: {xs: "100%", md: "60%", lg: "40%"},
+                                my: 3,
+                                mx: "auto"
+                            }}>
+                                <TextField variant="outlined" type="text" label="Search by location:" value={searchLocation} onChange={(e) => {setSearchLocation(e.target.value)}} sx={{
+                                        flex: 1,
+                                        mx: 1
+                                    }}/>
+             
+                                
+                                <TextField
+                                    align="left"
+                                    value={order}
+                                    onChange={(e) => {setOrder(e.target.value)}}
+                                    select
+                                    label="Sort by"
+                                    sx={{
+                                        flex: 1,
+                                        mx: 1
+                                    }}
+                                >
+                                    <MenuItem value="oldest">Oldest</MenuItem>
+                                    <MenuItem value="newest">Newest</MenuItem>                                
+                                </TextField>
+                                                              
+                            </Box>
                         }
 
                         <Box sx={{
