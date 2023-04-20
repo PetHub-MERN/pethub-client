@@ -2,7 +2,7 @@ import registerAPetImage from '../assets/registerAPetHomePage.jpg';
 import seeAllPetsImage from '../assets/seeAllPetsHomePage.jpg';
 import createAdoptionImage from '../assets/createAdoptionHomePage.jpg';
 import seeAdoptionsImage from '../assets/seeAdoptionsHomePage.jpg';
-import { Box, Card, CardActionArea, CardContent, Typography, Button, Container } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Typography, Button, Container, Paper } from "@mui/material";
 import CardMedia from '@mui/material/CardMedia';
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
@@ -118,7 +118,8 @@ function HomePage() {
             boxShadow: "inset 0px 1px 9px 0px rgb(77,77,77)",
             display: "flex",
             flexDirection: "column",
-            justifyContent:"center"
+            justifyContent:"center",
+            alignItems: "center"
         }}>
 
             <Container sx={{
@@ -307,6 +308,14 @@ function HomePage() {
                 </Box>
             </Box>
         </Box>
+
+        <Paper sx={{
+            width: {xs: "80%", md: "60%", xl: "40%"},
+            mx: "auto",
+            my: 4
+        }}>
+            <Typography sx={{fontWeight: "bolder", fontSize: {xs: "1.3rem", md: "1.5", xl: "1.8rem"}}}>Is your Buddy feeling lonely?<br/>Try <a id='whisker' href="https://whisker-weekends.netlify.app/"  rel="noreferrer" target="_blank">Whisker Weekends</a>!</Typography>
+        </Paper>
         
       </>
     );
