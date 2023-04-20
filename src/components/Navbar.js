@@ -49,13 +49,13 @@ function Navbar() {
             }}>
                 <Link to={"/"}>
                     <Typography variant="h3" sx={{
-                        display: {xs: "none", md: "block"}
+                        display: {xs: "none", lg: "block"}
                     }}>🐶 <strong>Pet</strong>Hub 😺</Typography>
                 </Link>
 
                 <Link to={"/"}>
                     <PetsIcon sx={{
-                        display: {xs: "block", md: "none"},
+                        display: {xs: "block", lg: "none"},
                         ml: 1, 
                         fontSize: "3em"
                     }}/>
@@ -124,7 +124,7 @@ function Navbar() {
 
                 <>
                     <Box sx={{
-                        display: { xs:"none", sm:"flex"},
+                        display: { xs:"none", md:"flex"},
                         alignItems: "center",
                         marginRight: "10px"
                     }}>
@@ -151,13 +151,12 @@ function Navbar() {
                     </Box>
 
                     <Box sx={{
-                        display: { xs:"block", sm:"none"},
+                        display: { xs:"block", md:"none"},
                         alignItems: "center",
                         marginRight: "10px",
                     }}>
                         <MenuIcon 
                             sx={{
-                                display: {xs: "block", md: "none"},
                                 ml: 1, 
                                 fontSize: "3em"
                             }}
