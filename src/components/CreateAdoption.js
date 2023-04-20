@@ -177,7 +177,7 @@ function CreateAdoption(props) {
     
                         <Typography variant="h6"><strong>Select Pets for Adoption</strong></Typography>
                         <Paper sx={{
-                            height: "30vh",
+                            height: "275px",
                             width: "inherit",
                             overflow: "auto",
                             display: "flex",
@@ -238,7 +238,7 @@ function CreateAdoption(props) {
                 }}>
                     
                     <CardMedia 
-                        sx={{ height: 140 }}
+                        sx={{ height: 150 }}
                         image={pet.imageUrl}
                         title={pet.name}
                     />
