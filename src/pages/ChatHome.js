@@ -18,6 +18,7 @@ const ChatHome = ({ socket }) => {
         setUserName(user.name);
         localStorage.setItem('userName', userNameFromAuth);
         // sends the username and socket ID to the Node.js server
+        socket.connect();
         socket.emit('newUser', { userNameFromAuth, socketID: socket.id });
         navigate('/chat/chat-page');
     };

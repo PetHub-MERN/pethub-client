@@ -1,13 +1,13 @@
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const ChatBody = ({ messages, lastMessageRef, typingStatus }) => {
+const ChatBody = ({ messages, lastMessageRef, socket }) => {
     const navigate = useNavigate();
 
     const handleLeaveChat = () => {
         localStorage.removeItem('userName');
         navigate('/');
-        window.location.reload();
+        socket.disconnect();
     };
 
     return (

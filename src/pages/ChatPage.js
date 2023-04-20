@@ -25,17 +25,21 @@ const ChatPage = ({ socket }) => {
 
     useEffect(() => {
         socket.on('typingResponse', (data) => setTypingStatus(data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [socket]);
+
+    useEffect(() => {
         socket.on("connect", () => {
             socket.emit('newUser', { userNameFromAuth, socketID: socket.id });
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [socket]);
+    }, []);
 
     return(
         <Container sx={{display:'flex', minWidth:"100vw", height: '75vh', m:0, mt: 3, justifyContent:'center'}}>
             <ChatBar socket={socket} />
             <Box>
-                <ChatBody messages={messages} typingStatus={typingStatus} lastMessageRef={lastMessageRef} />
+                <ChatBody messages={messages} typingStatus={typingStatus} lastMessageRef={lastMessageRef} socket={socket} />
                 <ChatFooter socket={socket} />
             </Box>
         </Container>
