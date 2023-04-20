@@ -4,6 +4,9 @@ import { Alert, AlertTitle, Box, Button, CircularProgress, Container, Paper, Typ
 import { AuthContext } from "../context/auth.context";
 import imageServices from "../services/image.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PendingIcon from '@mui/icons-material/Pending';
+
 
 const EditProfile = (props) => {
 
@@ -61,12 +64,15 @@ const EditProfile = (props) => {
                 width: "inherit"
                 }}>
                     
-                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                    <Button variant="contained" component="label" endIcon={(!imageUrl && isUrlReady) ? <AddAPhotoIcon/> : (imageUrl && isUrlReady) ? <CheckBoxIcon /> : <PendingIcon />}>
                         Upload Photo
                         <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                     </Button>
 
-                    <Button sx={{mb: 3, mt: 3}} onClick={handleFormSubmit} variant="outlined">CONFIRM CHANGES!</Button>
+                    {isUrlReady && 
+                        <Button sx={{mb: 3, mt: 3}} onClick={handleFormSubmit} variant="outlined">CONFIRM CHANGES!</Button>
+                    }
+
                 </Container>
             </form>
         ); 
@@ -91,8 +97,8 @@ const EditProfile = (props) => {
 
             <Paper 
                 sx={{ 
-                    width: {xs: '200px', xl: '250px'}, 
-                    height: {xs: '200px', xl: '250px'}, 
+                    width: {xs: '200px', xl: '300px'}, 
+                    height: {xs: '200px', xl: '300px'}, 
                     backgroundImage: imageUrl ? `url(${imageUrl})` : "none ", 
                     backgroundSize: "cover",
                     display: "flex",
