@@ -1,4 +1,4 @@
-import { Box, Fab } from "@mui/material";
+import { Box, Button, Fab } from "@mui/material";
 import CreateAdoption from "../components/CreateAdoption";
 import CreatePet from "../components/CreatePet"
 import EditAdoption from "../components/EditAdoption";
@@ -26,12 +26,9 @@ function ResourcePage(props) {
     //Adoptions List
     const [adoptions, setAdoptions] = useState(null);
 
-
-
     const getAllAdoptions = () => {
         adoptionServices.getAllAdoptions()
             .then((response) => {
-                const sortedAdoptions = response.data.sort([["updatedAt", -1]])
                 setAdoptions(response.data);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);
@@ -170,6 +167,15 @@ function ResourcePage(props) {
 
     return (
         <>
+            <Button 
+                variant="text" 
+                onClick={() => navigate(-1)}
+                sx={{
+                    position: "fixed",
+                    top: "12vh",
+                    left: "1vw"
+                }}
+            >{"<<< Return"}</Button>
 
             <Box sx={{
                 display: "flex",

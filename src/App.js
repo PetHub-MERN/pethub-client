@@ -31,10 +31,9 @@ function App() {
     }
   });
 
-
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <Box className="App">
         <Box sx={{
           minHeight: "90vh"
           
@@ -77,7 +76,7 @@ function App() {
         
 
         <Footer />
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import petServices from "../services/pet.services";
-import { Alert, AlertTitle, Button, CircularProgress, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress, Container, MenuItem, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import imageServices from "../services/image.services";
@@ -110,12 +110,14 @@ const EditPet = (props) => {
                         mt: 3
                     }}/>
                     
-                    <Select 
+                    <TextField 
                         align="left"
                         fullWidth
                         value={species}
                         onChange={(e) => {setSpecies(e.target.value)}}
                         sx={{mt: 3}}
+                        select
+                        label="Species"
                     >
                         <MenuItem value="Dog">Dog</MenuItem>
                         <MenuItem value="Cat">Cat</MenuItem>
@@ -123,7 +125,7 @@ const EditPet = (props) => {
                         <MenuItem value="Reptile">Reptile</MenuItem>
                         <MenuItem value="Fish">Fish</MenuItem>
                         <MenuItem value="Other">Other</MenuItem>
-                    </Select>
+                    </TextField>
                     <TextField required fullWidth variant="outlined"  type="text" label="Breed" value={breed} onChange={(e) => {setBreed(e.target.value)}} sx={{
                         mt: 3
                     }}/>

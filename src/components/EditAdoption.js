@@ -187,13 +187,13 @@ function EditAdoption(props) {
                         
                     </Paper>
 
-                    <Paper>
+                    <Paper sx={{mt:3}}>
                         {selectedPets.length === 0 ? 
                             <Typography><strong>You don't have any Pet selected</strong></Typography>
                             :
                             <Typography><strong>Pets Selected:</strong> {selectedPets.map((petId) => {
                                 const pet = ownedPets.filter((pet) => {return pet._id === petId})[0];
-                                return ` ${pet.name};`
+                                return ` ${pet.name}, `
                             })}</Typography>
                         }
                     </Paper>

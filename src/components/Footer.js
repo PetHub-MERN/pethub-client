@@ -11,9 +11,9 @@ function Footer() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.main,
             height: "10vh",
-            boxShadow: "0px -1px 9px 0px rgba(77,77,77,1)"
+            boxShadow: "0px -1px 9px 0px rgba(77,77,77,1)",
         }}>
             <Box my={0.5} mx={2}>
                 <Typography variant="h6" sx={{fontSize: "1rem"}}>Cristian Palao</Typography>
