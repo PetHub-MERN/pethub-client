@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import petServices from "../services/pet.services";
-import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import imageServices from "../services/image.services";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PendingIcon from '@mui/icons-material/Pending';
+
 
 const EditPet = (props) => {
 
@@ -60,10 +63,11 @@ const EditPet = (props) => {
                 .then(response => {
                     setErrorMessage(null);
 
-                    if (isDedicatedPage) {
-                        navigate(`/pets/${petId}`);
-                    } else {
+                    if (callbackToUpdate && callbackToCloseForm && !isDedicatedPage) {
                         callbackToUpdate();
+                        callbackToCloseForm();
+                    } else {
+                        navigate(`/pets/${petId}`);
                     }
                 })
                 .catch(err => {
@@ -128,12 +132,17 @@ const EditPet = (props) => {
                         mb: 5
                     }}/>
 
-                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                    <Button variant="contained" component="label" endIcon={(!imageUrl && isUrlReady) ? <AddAPhotoIcon/> : (imageUrl && isUrlReady) ? <CheckBoxIcon /> : <PendingIcon />}>
                         Edit Photo
                         <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                     </Button>
 
-                    <Button sx={{m: 3}} onClick={handleSubmit} variant="outlined">EDIT PET!</Button>
+                    {isUrlReady ?
+                        <Button sx={{m: 3}} onClick={handleSubmit} variant="outlined">EDIT PET!</Button>
+                        :
+                        <CircularProgress sx={{mt: 2}}/>
+                    }
+
                 </Container>
             </form>
         );

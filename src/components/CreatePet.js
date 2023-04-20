@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
-import { Alert, AlertTitle, Button, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress, Container, MenuItem, Select, TextField, Typography } from "@mui/material";
 import imageServices from "../services/image.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { useNavigate } from "react-router";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PendingIcon from '@mui/icons-material/Pending';
 
 const CreatePet = (props) => {
 
@@ -50,10 +52,11 @@ const CreatePet = (props) => {
                     setImageUrl(null)
                     setErrorMessage(null);
 
-                    if(isDedicatedPage) {
-                        navigate("/pets");
-                    } else {
+                    if(callbackToUpdate && callbackToCloseForm && !isDedicatedPage) {
                         callbackToUpdate();
+                        callbackToCloseForm();
+                    } else {
+                        navigate("/pets");
                     }
                 })
                 .catch( err => {
@@ -120,12 +123,16 @@ const CreatePet = (props) => {
                         mb: 5
                     }}/>
 
-                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                    <Button variant="contained" component="label" endIcon={(!imageUrl && isUrlReady) ? <AddAPhotoIcon/> : (imageUrl && isUrlReady) ? <CheckBoxIcon /> : <PendingIcon />}>
                         Upload Photo
                         <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                     </Button>
 
-                    <Button sx={{mb: 3, mt: 2}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
+                    {isUrlReady ?
+                        <Button sx={{mb: 3, mt: 2}} onClick={handleSubmit} variant="outlined">ADD YOUR PET!</Button>
+                        :
+                        <CircularProgress sx={{mt: 2}}/>
+                    }
                 </Container>
             </form>
         );

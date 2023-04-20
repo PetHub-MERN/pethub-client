@@ -6,6 +6,8 @@ import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import imageServices from "../services/image.services";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PendingIcon from '@mui/icons-material/Pending';
 
 function EditAdoption(props) {
 
@@ -73,10 +75,12 @@ function EditAdoption(props) {
         if(isUrlReady) {
                 adoptionServices.editAdoption(adoptionId, updatedAdoptionData)
                     .then((response) => {
+                        setImageUrl(null);
                         setErrorMessage(null);
         
-                        if(callbackToUpdate && !isDedicatedPage){
+                        if(callbackToUpdate && callbackToCloseForm && !isDedicatedPage){
                             callbackToUpdate();
+                            callbackToCloseForm();
                         } else {
                             navigate(`/adoptions/${adoptionId}`)
                         }
@@ -194,19 +198,23 @@ function EditAdoption(props) {
                         }
                     </Paper>
 
-                    <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                    <Button variant="contained" component="label" endIcon={(!imageUrl && isUrlReady) ? <AddAPhotoIcon/> : (imageUrl && isUrlReady) ? <CheckBoxIcon/> : <PendingIcon />} sx={{mt: 2}}>
                         Edit Photo
                         <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                     </Button>
 
-                    <Button 
-                        size="large" 
-                        onClick={handleSubmit}
-                        variant="outlined"
-                        sx={{
-                            m: 2
-                        }}
-                        >EDIT ADOPTION!</Button>
+                    {isUrlReady ?
+                        <Button 
+                            size="large" 
+                            onClick={handleSubmit}
+                            variant="outlined"
+                            sx={{
+                                m: 2
+                            }}
+                            >EDIT ADOPTION!</Button>
+                        :
+                        <CircularProgress sx={{mt: 2}}/>
+                    }
                 </Container>             
 
             </form>

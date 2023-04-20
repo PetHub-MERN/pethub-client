@@ -6,6 +6,8 @@ import { AuthContext } from "../context/auth.context";
 import petServices from "../services/pet.services";
 import imageServices from "../services/image.services";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PendingIcon from '@mui/icons-material/Pending';
 
 function CreateAdoption(props) {
 
@@ -67,8 +69,9 @@ function CreateAdoption(props) {
                     setLocation("");
                     setImageUrl(null);
     
-                    if(callbackToUpdate && !isDedicatedPage){
+                    if(callbackToUpdate && callbackToCloseForm && !isDedicatedPage){
                         callbackToUpdate();
+                        callbackToCloseForm();
                     } else {
                         navigate("/adoptions");
                     }
@@ -197,19 +200,24 @@ function CreateAdoption(props) {
                             }
                         </Paper>
 
-                        <Button variant="contained" component="label" endIcon={<AddAPhotoIcon />}>
+                        <Button variant="contained" component="label" endIcon={(!imageUrl && isUrlReady) ? <AddAPhotoIcon/> : (imageUrl && isUrlReady) ? <CheckBoxIcon /> : <PendingIcon />}>
                             Upload Photo
                             <input type="file" name="imageUrl" hidden onChange={(e) => handleFileUpload(e)} />
                         </Button>
+
+                        {isUrlReady ?
+                            <Button 
+                                size="large" 
+                                onClick={handleSubmit}
+                                variant="outlined"
+                                sx={{
+                                    m: 2
+                                }}
+                                >CREATE</Button>
+                            :
+                            <CircularProgress sx={{mt: 2}}/>
+                        }
     
-                        <Button 
-                            size="large" 
-                            onClick={handleSubmit}
-                            variant="outlined"
-                            sx={{
-                                m: 2
-                            }}
-                            >CREATE</Button>
                     </Container>             
     
                 </form>
