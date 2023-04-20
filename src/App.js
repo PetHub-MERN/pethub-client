@@ -36,7 +36,7 @@ function App() {
         main: "rgba(0, 0, 0, 0.7)"
       },
       welcomeDark: {
-        main: "rgba(255, 255, 255, 0.7)"
+        main: "rgba(255, 255, 255, 0.9)"
       },
     }
   });

@@ -80,7 +80,7 @@ function SignUpForm(props) {
             </Container>
 
             {isDedicatedPage ? 
-                 <Typography>Already have an Account? <Button variant="text" onClick={() => {navigate("/login")}}>LogIn</Button></Typography>
+                 <Typography>Already have an Account? <Button variant= "text" onClick={() => {navigate("/login")}}>LogIn</Button></Typography>
                  :
                  <Typography>Already have an Account? <Button variant="text" onClick={() => {setWelcomeContent("login")}}>LogIn</Button></Typography>
             }
