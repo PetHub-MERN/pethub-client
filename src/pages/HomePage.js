@@ -125,9 +125,10 @@ function HomePage() {
             <Container sx={{
                 borderRadius: 1,
                 backgroundColor: "rgba(240,240,240, 0.9)",
+                maxHeight: "90%",
+                overflow: "auto",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent:"center",
                 alignItems: "center",
                 width: "60%",
             }}>

@@ -31,6 +31,7 @@ function ResourcePage(props) {
     const getAllAdoptions = () => {
         adoptionServices.getAllAdoptions()
             .then((response) => {
+                const sortedAdoptions = response.data.sort([["updatedAt", -1]])
                 setAdoptions(response.data);
             }).catch((err) => {
                 setErrorMessage(err.response.data.message);

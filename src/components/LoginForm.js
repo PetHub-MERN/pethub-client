@@ -70,7 +70,7 @@ function LoginForm(props) {
                         <TextField variant="outlined"  type="password" label="Password" value={password} onChange={(e) => {setPassword(e.target.value)}} sx={{
                             m: 3
                         }}/>
-                        <Button onClick={handleLoginSubmit} variant="outlined">LogIn</Button>
+                        <Button onClick={handleLoginSubmit} variant="contained">LogIn</Button>
                     </Container>
                 </form>
 
