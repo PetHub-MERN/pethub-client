@@ -17,7 +17,7 @@ const ChatBar = ({ socket }) => {
             justifyContent: 'flex-start',
             m: 0,
             borderRight: '2px solid #6A441B',
-            backgroundColor: '#D58936',
+            backgroundColor: '#E1AA7D',
             borderTopLeftRadius: '15px', 
             borderBottomLeftRadius: '15px', 
             boxShadow: 3,

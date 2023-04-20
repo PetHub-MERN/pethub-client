@@ -85,7 +85,7 @@ const EditProfile = (props) => {
             alignItems: "center"
         }}>
             <Typography variant="h3" sx={{
-                m: 4
+                mt: 4
             }}>Edit <strong>Picture</strong></Typography>
 
             {errorMessage &&

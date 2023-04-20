@@ -27,7 +27,7 @@ const ChatBody = ({ messages, lastMessageRef, typingStatus }) => {
                 alignItems: 'center', 
                 backgroundColor: '#e5b886', 
                 borderBottom: '2px solid #6A441B',
-                width: {xs: '80vw', md:'85vw', xl: '61vw'}, 
+                width: "100%", 
                 borderTopRightRadius: '15px', 
             }}
             >

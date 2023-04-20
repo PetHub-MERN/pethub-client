@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8ff;
 }
 
 code {
@@ -29,11 +30,11 @@ code {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #D58936;
+  background: #E1AA7D;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #643e15;
+  background: #cb8b57;
 }
 }
