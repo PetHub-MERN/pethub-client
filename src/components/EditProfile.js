@@ -91,8 +91,8 @@ const EditProfile = (props) => {
 
             <Paper 
                 sx={{ 
-                    width: {xs: '200px', xl: '400px'}, 
-                    height: {xs: '200px', xl: '400px'}, 
+                    width: {xs: '200px', xl: '250px'}, 
+                    height: {xs: '200px', xl: '250px'}, 
                     backgroundImage: imageUrl ? `url(${imageUrl})` : "none ", 
                     backgroundSize: "cover",
                     display: "flex",
