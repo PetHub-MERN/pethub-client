@@ -1,4 +1,4 @@
-import { AppBar, Box, Menu, MenuItem, Typography } from "@mui/material";
+import { AppBar, Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import PetsIcon from "@mui/icons-material/Pets";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -8,9 +8,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-
-function Navbar() {
+function Navbar({ toggleDark, changeMode }) {
 
     const { isLoggedIn, logOutUser } = useContext(AuthContext);
 
@@ -69,20 +70,35 @@ function Navbar() {
                         alignItems: "center",
                         marginRight: "10px",
                     }}>
-                        <Button sx={{color: "black", borderColor:"black", marginRight:"20px"}} variant="outlined" startIcon={<LoginIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("login")}}>
+                        <IconButton 
+                            sx={{m:2}}
+                            onClick={() => changeMode()} 
+                            color="inherit"
+                        >
+                            {toggleDark ? <Brightness7Icon/> : <Brightness4Icon/>}
+                        </IconButton>
+
+                        <Button sx={{color: "black", borderColor:"black", marginRight:"20px"}} variant={toggleDark ? 'contained' : 'outlined'} startIcon={<LoginIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("login")}}>
                             LOGIN
                         </Button>
 
-                        <Button sx={{color:"black", borderColor:"black"}} variant="outlined" startIcon={<PersonAddIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("signup")}}>
+                        <Button sx={{color: "black", borderColor:"black"}} variant={toggleDark ? 'contained' : 'outlined'} startIcon={<PersonAddIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("signup")}}>
                             SIGNUP
                         </Button>
                     </Box>
 
                     <Box sx={{
-                        display: { xs:"block", sm:"none"},
+                        display: { xs:"flex", sm:"none"},
                         alignItems: "center",
                         marginRight: "10px",
                     }}>
+                        <IconButton 
+                            onClick={() => changeMode()} 
+                            color="inherit"
+                        >
+                            {toggleDark ? <Brightness7Icon/> : <Brightness4Icon/>}
+                        </IconButton>
+
                         <MenuIcon 
                             sx={{
                                 display: {xs: "block", md: "none"},
@@ -103,13 +119,13 @@ function Navbar() {
                         >
 
                             <MenuItem>
-                                <Button sx={{color: "black", borderColor:"black", marginRight:"20px"}} variant="text" startIcon={<LoginIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("login")}}>
+                                <Button sx={{color: toggleDark ? "white" : "black", borderColor:"black", marginRight:"20px"}} variant="text" startIcon={<LoginIcon sx={{color: toggleDark ? "white" : "black"}}/>} onClick={() => {handleButtonClick("login")}}>
                                     LOGIN
                                 </Button>
                             </MenuItem>
 
                             <MenuItem>
-                                <Button sx={{color:"black", borderColor:"black"}} variant="text" startIcon={<PersonAddIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("signup")}}>
+                                <Button sx={{color:toggleDark ? "white" : "black", borderColor:"black"}} variant="text" startIcon={<PersonAddIcon sx={{color: toggleDark ? "white" : "black"}}/>} onClick={() => {handleButtonClick("signup")}}>
                                     SIGNUP
                                 </Button>
                             </MenuItem>
@@ -128,6 +144,15 @@ function Navbar() {
                         alignItems: "center",
                         marginRight: "10px"
                     }}>
+                        <IconButton 
+                            sx={{
+                                
+                            }} 
+                            onClick={() => changeMode()} 
+                            color="inherit"
+                        >
+                            {toggleDark ? <Brightness7Icon/> : <Brightness4Icon/>}
+                        </IconButton>
 
                         <NavLink exact to={"/user-profile"} isActive={() => location.pathname === "/"} className="nav-link">
                             MY PROFILE
@@ -145,16 +170,26 @@ function Navbar() {
                             CHAT
                         </NavLink>
 
-                        <Button sx={{color: "black", borderColor:"black", mx: 3}} variant="outlined" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
+                        <Button sx={{color: "black", borderColor:"black", mx: 3}} variant={toggleDark ? 'contained' : 'outlined'} startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
                             LOGOUT
                         </Button>
                     </Box>
 
                     <Box sx={{
-                        display: { xs:"block", md:"none"},
+                        display: { xs:"flex", md:"none"},
                         alignItems: "center",
                         marginRight: "10px",
                     }}>
+                        <IconButton 
+                            sx={{
+                                m:2
+                            }} 
+                            onClick={() => changeMode()} 
+                            color="inherit"
+                        >
+                            {toggleDark ? <Brightness7Icon/> : <Brightness4Icon/>}
+                        </IconButton>
+
                         <MenuIcon 
                             sx={{
                                 ml: 1, 
@@ -197,7 +232,7 @@ function Navbar() {
                             </MenuItem>
 
                             <MenuItem>
-                                <Button sx={{color: "black", borderColor:"black", mx: 3}} variant="text" startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
+                                <Button sx={{color: "black", borderColor:"black", mx: 3}} variant={toggleDark ? 'contained' : 'outlined'} startIcon={<LogoutIcon sx={{color: "inherit"}}/>} onClick={() => {handleButtonClick("logout")}}>
                                     LOGOUT
                                 </Button>
                             </MenuItem>

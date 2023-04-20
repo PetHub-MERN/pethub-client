@@ -9,10 +9,13 @@ import { useContext, useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignupForm';
 import { AuthContext } from '../context/auth.context';
+import { useTheme } from '@emotion/react';
 
-function HomePage() {
+function HomePage({ toggleDark }) {
 
     const navigate = useNavigate();
+
+    const theme = useTheme();
 
     const [welcomeContent, setWelcomeContent] = useState("welcome");
 
@@ -124,8 +127,8 @@ function HomePage() {
 
             <Container sx={{
                 borderRadius: 1,
-                backgroundColor: "rgba(240,240,240, 0.9)",
                 maxHeight: "90%",
+                backgroundColor: toggleDark ? `${theme.palette.welcomeLight.main}` : `${theme.palette.welcomeDark.main}`,
                 overflow: "auto",
                 display: "flex",
                 flexDirection: "column",
@@ -262,7 +265,7 @@ function HomePage() {
                                 CREATE AN ADOPTION
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                Our site offers pet adoption services and company animal rental programs. Find a new home for your furry friend or rent them out to spread some joy. Check us out now!
+                                Our site offers pet adoption services and company animal rental programs. Find a new home for your furry friend or rent them out to spread some joy.
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -311,11 +314,11 @@ function HomePage() {
         </Box>
 
         <Paper sx={{
-            width: {xs: "80%", md: "60%", xl: "40%"},
+            width: {xs: "70%", md: "50%", xl: "30%"},
             mx: "auto",
             my: 4
         }}>
-            <Typography sx={{fontWeight: "bolder", fontSize: {xs: "1.3rem", md: "1.5", xl: "1.8rem"}}}>Is your Buddy feeling lonely?<br/>Try <a id='whisker' href="https://whisker-weekends.netlify.app/"  rel="noreferrer" target="_blank">Whisker Weekends</a>!</Typography>
+            <Typography sx={{p:3, fontWeight: "bolder", fontSize: {xs: "1.3rem", md: "1.5", xl: "1.8rem"}}}>Is your Buddy feeling lonely?<br/>Try <a id='whisker' href="https://whisker-weekends.netlify.app/"  rel="noreferrer" target="_blank">Whisker Weekends</a>!</Typography>
         </Paper>
         
       </>

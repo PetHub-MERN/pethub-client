@@ -87,7 +87,7 @@ function PetList(props) {
                                                         </Typography>
                                                         <Chip sx={{m:1}} label={pet.species} color="warning" />
                                                         <Chip sx={{m:1}} label={pet.breed} color="warning" />
-                                                        <Chip sx={{m:1}} label={pet.dateOfBirth.split('T')[0].split("").reverse().join("")} color="warning" />
+                                                        <Chip sx={{m:1}} label={pet.dateOfBirth.split('T')[0]} color="warning" />
                                                     </CardContent>
                                                     <CardActions>
                                                         <Button variant="outlined" onClick={() => {handleClickDetails(pet._id)}}>LEARN MORE</Button>

@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NoPageFound from './pages/NoPageFound';
-import { Box, ThemeProvider, createTheme } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Footer from './components/Footer';
 import UserProfilePage from './pages/UserProfilePage';
 import ResourcePage from './pages/ResourcePage';
@@ -17,32 +17,47 @@ import EditPet from './components/EditPet';
 import socketIO from 'socket.io-client';
 import ChatHome from './pages/ChatHome';
 import ChatPage from './pages/ChatPage';
+import { useState } from 'react';
 
 const socket = socketIO.connect(process.env.REACT_APP_API_URL);
 
 function App() {
+  
+  const [toggleDark, setToggleDark] = useState(false);
 
   const theme = createTheme({
     palette: {
+      mode: toggleDark ? 'dark' : 'light', 
       primary:{
         // main: "#D58936",
         main: "#E1AA7D",
-      }
+      }, 
+      welcomeLight: {
+        main: "rgba(0, 0, 0, 0.7)"
+      },
+      welcomeDark: {
+        main: "rgba(255, 255, 255, 0.7)"
+      },
     }
   });
 
+  const changeMode = () => {
+    setToggleDark(!toggleDark);
+  }
+
   return (
     <ThemeProvider theme={theme}>
+    <CssBaseline />
       <Box className="App">
         <Box sx={{
           minHeight: "90vh"
           
         }}>
-          <Navbar />
+          <Navbar toggleDark={toggleDark} changeMode={() => changeMode()} />
 
           <Routes>
             
-            <Route path='/' element={<HomePage />}/>
+            <Route path='/' element={<HomePage toggleDark={toggleDark} />}/>
             
             {/* Authentication Routes */}
             <Route path='/signup' element={<VerifyAuthentication logout> <SignUpForm isDedicatedPage/> </VerifyAuthentication>}/>
@@ -75,7 +90,7 @@ function App() {
         </Box>
         
 
-        <Footer />
+        <Footer toggleDark={toggleDark} />
       </Box>
     </ThemeProvider>
   );

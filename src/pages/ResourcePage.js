@@ -14,6 +14,7 @@ import PetDetails from "../components/PetDetails";
 import IsOwner from "../components/IsOwner";
 import AddIcon from '@mui/icons-material/Add';
 import { AuthContext } from "../context/auth.context";
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 
 function ResourcePage(props) {
 
@@ -175,7 +176,7 @@ function ResourcePage(props) {
                     top: "12vh",
                     left: "1vw"
                 }}
-            >{"<<< Return"}</Button>
+            ><ArrowBackIosNewRoundedIcon /></Button>
 
             <Box sx={{
                 display: "flex",
