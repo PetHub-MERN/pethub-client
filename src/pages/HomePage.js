@@ -306,7 +306,7 @@ function HomePage({ toggleDark }) {
                         variant="contained"
                         onClick={() => handleCardClick("see adoptions")}
                         >
-                        SEE ALL PETS
+                        SEE ALL ADOPTIONS
                         </Button>
                     </Card>
                 </Box>
