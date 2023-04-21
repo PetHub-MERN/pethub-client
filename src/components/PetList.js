@@ -120,21 +120,30 @@ function PetList(props) {
                                                     key={pet._id}
                                                     sx={{
                                                         width: {xs: 250, md: 300},
-                                                        m:3
+                                                        m:3,
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        alignItems: "center",
+                                                        justifyContent: "space-between"
                                                 }}>
-                                                    <CardMedia 
-                                                        sx={{ height: 200}}
-                                                        image={pet.imageUrl}
-                                                        title={pet.name}
-                                                    />
-                                                    <CardContent>
-                                                        <Typography gutterBottom variant="h5" component="div">
-                                                            {pet.name}
-                                                        </Typography>
-                                                        <Chip sx={{m:1}} label={pet.species} color="warning" />
-                                                        <Chip sx={{m:1}} label={pet.breed} color="warning" />
-                                                        <Chip sx={{m:1}} label={pet.dateOfBirth.split('T')[0]} color="warning" />
-                                                    </CardContent>
+                                                    <Box>
+                                                        <CardMedia 
+                                                            sx={{ height: 200, width: {xs: 250, md: 300}}}
+                                                            image={pet.imageUrl}
+                                                            title={pet.name}
+                                                        />
+                                                        <CardContent>
+                                                            <Typography gutterBottom variant="h5" component="div">
+                                                                {pet.name}
+                                                            </Typography>
+                                                            <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                                                <Chip sx={{my:1}} label={pet.species} color="warning" />
+                                                                <Chip sx={{my:1}} label={pet.breed} color="warning" />
+                                                                <Chip sx={{my:1}} label={pet.dateOfBirth.split('T')[0]} color="warning" />
+                                                            </Box>
+                                                        </CardContent>
+                                                    </Box>
+
                                                     <CardActions>
                                                         <Button variant="outlined" onClick={() => {handleClickDetails(pet._id)}}>LEARN MORE</Button>
                                                     </CardActions>

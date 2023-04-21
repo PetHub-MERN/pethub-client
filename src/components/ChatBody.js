@@ -43,13 +43,13 @@ const ChatBody = ({ messages, lastMessageRef, socket }) => {
                         <Container sx={{
                             display: 'flex', 
                             justifyContent: 'flex-end', 
-                            width: '100%',
-                            my: 3
+                            width: '90%',
+                            m: 2
                         }}
                         key={message.id}
                         >
                             <Paper sx={{
-                                maxWidth: '20%',
+                                maxWidth: {xs: "80%", xl:'40%'},
                                 padding: '15px',
                                 backgroundColor: '#1284FF',
                                 color: 'white'
@@ -67,12 +67,12 @@ const ChatBody = ({ messages, lastMessageRef, socket }) => {
                             display: 'flex', 
                             justifyContent: 'flex-start', 
                             width: '90%',
-                            m: 3
+                            m: 2
                         }}
                         key={message.id}
                         >
                             <Paper sx={{
-                                maxWidth: '20%',
+                                maxWidth: {xs: "80%", xl:'40%'},
                                 padding: '15px',
                                 backgroundColor: '#FFF',
                                 color: 'black'

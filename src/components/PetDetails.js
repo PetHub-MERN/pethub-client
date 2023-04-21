@@ -55,7 +55,7 @@ function PetDetails(props) {
                         align="left"
                         avatar={<Avatar src={pet.owner.imageUrl}></Avatar>}
                         title={pet.owner.name}
-                        subheader="Announcer"
+                        subheader="Owner"
                     />
 
                     <Box 

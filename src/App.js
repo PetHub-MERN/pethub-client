@@ -29,7 +29,6 @@ function App() {
     palette: {
       mode: toggleDark ? 'dark' : 'light', 
       primary:{
-        // main: "#D58936",
         main: "#E1AA7D",
       }, 
       welcomeLight: {

@@ -56,9 +56,9 @@ function UserProfilePage() {
                                 display: "flex", 
                                 justifyContent:"center", 
                                 alignContent: "center",
-                                marginTop: "5%"
+                                my: 5
                             }}>
-                                <Paper elevation={3} sx={{maxWidth:"50%", padding:"20px"}}>
+                                <Paper elevation={3} sx={{maxWidth:{xs: "90%", md:"50%"}, padding:"20px", display: "flex", flexDirection: "column", alignItems: "center"}}>
                                     <Box sx={{ width: {xs: '200px', xl: '300px'}, height: {xs: '200px', xl: '300px'}, backgroundImage: `url(${userFromDb.imageUrl})`, backgroundSize: 'cover', borderRadius: '50%' }}/>
                                     <Typography variant="h4">{userFromDb.name}</Typography>
                                     <Typography variant="h5">{userFromDb.email}</Typography>
